@@ -8,24 +8,17 @@ redirect_from:
   - /about.html
 ---
 
-
-Education
+About Myself
 ======
-* B.S. in GitHub, GitHub University, 2012
-<!-- * M.S. in Jekyll, GitHub University, 2014 -->
-* Ph.D in Version Control Theory, GitHub University, 2018 (expected)
+I am a research assistant at Interdisciplinary Research Center, Computer Science Department, Shandong University. I just got a Bachelor degree majored in Artificial Intelligence from CS department, Shandong University.
+# Research Interest
+Robotics, Human Robot Interaction
 
-Work experience
-======
-* Summer 2015: Research Assistant
-  * Github University
-  * Duties included: Tagging issues
-  * Supervisor: Professor Git
 
-* Fall 2015: Research Assistant
-  * Github University
-  * Duties included: Merging pull requests
-  * Supervisor: Professor Hub
+Right Now I am working with Prof. Changhe Tu, Prof. Xifeng Gao, Dr. Zherong Pan to develop a develop a method for robot hands searching for a tunneling-free, second-order convergent and model-based grasp policy.
+
+If you want to know more details about me, please click the link for [https://kraftoreo.github.io/files/Duo_Zhang_CV.pdf](CV).
+
   
 
 
