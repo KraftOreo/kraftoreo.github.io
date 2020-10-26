@@ -17,7 +17,7 @@ Robotics, Human Robot Interaction
 
 Right Now I am working with Prof. Changhe Tu, Prof. Xifeng Gao, Dr. Zherong Pan to develop a develop a method for robot hands searching for a tunneling-free, second-order convergent and model-based grasp policy.
 
-If you want to know more details about me, please click the link for [https://kraftoreo.github.io/files/Duo_Zhang_CV.pdf](CV).
+If you want to know more details about me, please click the link for [CV](https://kraftoreo.github.io/files/Duo_Zhang_CV.pdf).
 
   
 
