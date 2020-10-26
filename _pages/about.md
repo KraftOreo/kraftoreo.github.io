@@ -13,8 +13,7 @@ About Myself
 I am a research assistant at Interdisciplinary Research Center, Computer Science Department, Shandong University. I just got a Bachelor degree majored in Artificial Intelligence from CS department, Shandong University.
 # Research Interest
 Robotics, Human Robot Interaction
-
-
+# What I Am Doing
 Right Now I am working with Prof. Changhe Tu, Prof. Xifeng Gao, Dr. Zherong Pan to develop a develop a method for robot hands searching for a tunneling-free, second-order convergent and model-based grasp policy.
 
 If you want to know more details about me, please click the link for [CV](https://kraftoreo.github.io/files/Duo_Zhang_CV.pdf).
