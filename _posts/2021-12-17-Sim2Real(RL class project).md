@@ -1,5 +1,5 @@
 ---
-title:  "Advanced examples"
+title:  "RL class Project"
 mathjax: true
 layout: post
 categories: media
