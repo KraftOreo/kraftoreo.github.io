@@ -66,6 +66,5 @@ Reach Task using full RL-based model
 {% include embed.html url="https://www.youtube.com/embed/rLUoR4EkUTo" %}
 Reach Task using RL-based model with pretrained feature extractor and depth information
 {% include embed.html url="https://youtu.be/embed/8auil7amjDI" %}
-{% include embed.html url="https://www.youtube.com/embed/_C0A5zX-iqM" %}
-{% include embed.html url="https://www.youtube.com/embed/_C0A5zX-iqM" %}
+
 
