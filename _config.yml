@@ -1,6 +1,6 @@
-title: "Macathy Jia"
-author: "Macathy Jia"
-description: "University of British Columbia"
+title: "Duo Zhang"
+author: "Duo Zhang"
+description: "New York University"
 permalink: /:title/
 lang: "en"
 excerpt_separator: "\n\n\n"
@@ -18,14 +18,14 @@ minimal: false             # use a dark header
 
 navigation:                # accepts {file, title, url, icon, sidebaricon}
   - {file: "index.html", title: "Home"}
-  - {url: "jhn_cv.pdf", title: "CV"}
+  - {url: "_files/Duo_Zhang_CV.pdf", title: "CV"}
   - {url: "Portfolio.pdf", title: "Portfolio"}
   - {file: "blog.html", title: "Blog"}
 #   - {file: "landscape.html", title: "Landscape Architecture"}
 
 external:                  # shows a footer with social links - for available icons see fontawesome.com/icons
-  - {title: Mail, icon: envelope, url: "mailto:jiang_tang_dm@163.com"}
-  - {title: Github, icon: github, url: "https://github.com/MacathyJia/MacathyJia.github.io"}
+  - {title: Mail, icon: envelope, url: "mailto:dz2140@nyu.edu"}
+  - {title: Github, icon: github, url: "https://github.com/KraftOreo"}
   - {title: Twitter, icon: twitter, url: "https://www.instagram.com/jtmacathy/"}
 
 comments:
