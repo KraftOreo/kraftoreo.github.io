@@ -55,9 +55,9 @@ A wrapper `div` with the class `large` can be used to increase the width of an i
 ![Flower](https://user-images.githubusercontent.com/4943215/55412447-bcdb6c80-5567-11e9-8d12-b1e35fd5e50c.jpg)
 
 [Flower](https://unsplash.com/photos/iGrsa9rL11o) by Tj Holowaychuk
-
+![Depth image in simulation](https://github.com/KraftOreo/kraftoreo.github.io/blob/master/assets/files/depth.png)
 ## Embedded content
-
+depth image from simulation: 
 Reach Task using full RL-based model
 {% include embed.html url="https://www.youtube.com/embed/rLUoR4EkUTo" %}
 Reach Task using full RL-based model variation in camera position
