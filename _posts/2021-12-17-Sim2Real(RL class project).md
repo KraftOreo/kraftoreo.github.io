@@ -53,7 +53,7 @@ Upload an image to the *assets* folder and embed it with `![title](/assets/name.
 A wrapper `div` with the class `large` can be used to increase the width of an image or iframe.
 
 
-![Depth image in simulation](https://github.com/KraftOreo/kraftoreo.github.io/blob/master/assets/files/depth.png)
+![Depth image in simulation](/assets/files/depth.png)
 ## Embedded content
 depth image from simulation: 
 Reach Task using full RL-based model
