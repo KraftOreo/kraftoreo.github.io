@@ -58,13 +58,11 @@ A wrapper `div` with the class `large` can be used to increase the width of an i
 
 ## Embedded content
 
-You can also embed a lot of stuff, for example from YouTube, using the `embed.html` include.
-
-{% include embed.html url="https://www.youtube.com/embed/_C0A5zX-iqM" %}
-
 Reach Task using full RL-based model
 {% include embed.html url="https://www.youtube.com/embed/rLUoR4EkUTo" %}
+Reach Task using full RL-based model variation in camera position
+{% include embed.html url="https://www.youtube.com/embed/8auil7amjDI"%}
 Reach Task using RL-based model with pretrained feature extractor and depth information
-{% include embed.html url="https://youtu.be/embed/8auil7amjDI" %}
-
-
+{% include embed.html url="https://www.youtube.com/embed/xiiS1zGqjCQ"%}
+Depth image from RealSense2 Camera
+{% include embed.html url="https://www.youtube.com/embed/FYNW7Zaa-lo"%}
