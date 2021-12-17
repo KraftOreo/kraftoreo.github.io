@@ -1,0 +1,60 @@
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+/* Create two equal columns that floats next to each other */
+.column {
+  float: left;
+  width: 50%;
+/*   flex: 50%; */
+  padding: 10px;
+  
+}
+
+/* .row {
+  display: flex;
+ } */
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+  .column {
+    width: 100%;
+  }
+}
+</style>
+
+<article>
+
+  <div class="row">
+  <div class="column">
+    <img src="jhn_photo.JPG" style="width:auto;">
+  </div>
+  <div class="column">
+    <h2>About me</h2>
+    <p>I’m an Master Student in the <a href="https://sala.ubc.ca/">Landscape Architecture Department</a> at the University of British Columbia.
+
+I got my Bachelor degree of Science in Landscape Architecture from Colorado State University with minor being Global Environmental Sustainability and got my Bachelor 
+degree of Agricultural in Landscape Architecture from Anhui Agricultural University.
+
+I was also an intern at Graphic Design Team of College of Agricultural Science, Colorado State University.</p>
+  </div>
+</div>
+ 
+
+</article>
+  
+{% if paginator.total_pages > 1 %}
+  <footer>
+    {% if paginator.previous_page %}<a href="{{ paginator.previous_page_path | relative_url }}">« newer posts</a>{% else %}<span></span>{% endif %}
+    <span>page {{ paginator.page }} of {{ paginator.total_pages }}</span>
+    {% if paginator.next_page %}<a href="{{ paginator.next_page_path | relative_url }}">older posts »</a>{% else %}<span></span>{% endif %}
+  </footer>
+{% endif %}
