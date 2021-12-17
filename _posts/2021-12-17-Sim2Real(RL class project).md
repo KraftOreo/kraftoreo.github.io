@@ -61,3 +61,10 @@ A wrapper `div` with the class `large` can be used to increase the width of an i
 You can also embed a lot of stuff, for example from YouTube, using the `embed.html` include.
 
 {% include embed.html url="https://www.youtube.com/embed/_C0A5zX-iqM" %}
+
+Reach Task using full RL-based model
+{% include embed.html url="https://youtu.be/rLUoR4EkUTo" %}
+{% include embed.html url="https://www.youtube.com/embed/_C0A5zX-iqM" %}
+{% include embed.html url="https://www.youtube.com/embed/_C0A5zX-iqM" %}
+{% include embed.html url="https://www.youtube.com/embed/_C0A5zX-iqM" %}
+
