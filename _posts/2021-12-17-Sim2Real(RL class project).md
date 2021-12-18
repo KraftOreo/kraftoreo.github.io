@@ -78,7 +78,6 @@ After a lot of trails, we settled on the following forms of Domain Randomisation
 1. Camera angle variation: Here we vary the camera angle slightly to compensate for slight discrepancy in camera positioning in the real world. 
 2. Lighting vartion: Here we randomise the lighting in the simulation. This leads to resilience in the reflective and slight color variations in the real world.
 
-
 <center><iframe width="596" height="448" src="https://www.youtube.com/embed/5LpJUl7Ee3E" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></center>
 <center> The video showing domain randomization </center>
 
@@ -96,3 +95,7 @@ Reach Task using full RL-based model variation in camera position
 {% include embed.html url="https://www.youtube.com/embed/8auil7amjDI"%}
 Reach Task using RL-based model with pretrained feature extractor and depth information
 {% include embed.html url="https://www.youtube.com/embed/xiiS1zGqjCQ"%} -->
+
+In our experiments, we can show that in the training time, the performance of the model with depth information is better than without depth information.
+<center><img src="/assets/files/bottleneck_depth_vs_non_depth.png" width="596"></center>
+<center> Bottleneck model with depth information vs Bottleneck model without depth information </center>
