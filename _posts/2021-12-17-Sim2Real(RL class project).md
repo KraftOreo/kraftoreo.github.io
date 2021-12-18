@@ -47,6 +47,7 @@ Here the $$ Q_T $$ is predicted using the Target networks (Actor and Critic) whi
 
 ![Flowcharts](../assets/files/sim2real.png)
 <center>The architecture of our network</center>
+
 # Adapting to the Real World
 Here, we discuss the optamisations we made during training and deployment time to bridge the sim2real gap.
 
