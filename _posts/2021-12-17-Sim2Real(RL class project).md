@@ -45,7 +45,7 @@ $$ L_c = ( Q(s_t,a_t) - r_t - \gamma Q_T(s_{t+1},\pi(s_{t+1}) )  )^2 $$
 
 Here the $$ Q_T $$ is predicted using the Target networks (Actor and Critic) which are updated using Polyak averaging of the weights of the corresponding current Actor and Critic networks.
 
-![Flowcharts](../assets/files/sim2real.png)
+<center><img src="/assets/files/sim2real.png" width="75%"></center>
 
 # Adapting to the Real World
 Here, we discuss the optamisations we made during training and deployment time to bridge the sim2real gap.
@@ -54,16 +54,20 @@ Here, we discuss the optamisations we made during training and deployment time t
 Sometimes it is hard to gather Depth perception from plain images which leads to performance dips in the model in simulation and in the real world. In an ideal scenario, we would have liked to have addiotional information on Depth. Depth is easy to gather in simulation. The real world on the hand was a different case. We tried using the Depth output of the Intel Realsense cameras, but much to our dismay it lacked the consistency and accuracy required for out model to work properly.
 
 Here's the juxtaposition of the depth information yielded by the simulation and the real world-
-Depth image from simulation
-![Depth](../assets/files/depth.png | width=350)
-Depth image from RealSense2 Camera
-{% include embed.html url="https://www.youtube.com/embed/FYNW7Zaa-lo" %}
 
+<center><img src="/assets/files/depth.png" width="596"></center>
+<center> Depth image from simulation </center>
+
+
+<center><iframe width="596" height="336" src="https://www.youtube.com/embed/FYNW7Zaa-lo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></center>
+<center> Depth image from RealSense2 Camera </center>
 Looking at these results we decided move away from depth information altogether.
 
 Fortunately we noticed that using a side camera angle allowed a more reasonable perception of Depth. This is probably because the model has parameters such as the extension of the arm to latch onto to better estimate depth.
 
-!!!!!!!! INSERT STILL IMAGE OF OUR ANGLE !!!!!!!!!!!
+<center><img src="/assets/files/still_image.png" width="596"></center>
+<center> The side view of the XArm </center>
+
 
 ### Domain Randomisation
 The idea of Domain Randomization is based on the idea of generalisation. There are certain attributes of the simulation that might not perfectly mimic the real world leading to the sim2real gap. Randomising these attributes during training should develop resilience in the model to the corresponding variations in the real world.
@@ -74,16 +78,21 @@ After a lot of trails, we settled on the following forms of Domain Randomisation
 1. Camera angle variation: Here we vary the camera angle slightly to compensate for slight discrepancy in camera positioning in the real world. 
 2. Lighting vartion: Here we randomise the lighting in the simulation. This leads to resilience in the reflective and slight color variations in the real world.
 
-!!!!!!!!!!!!! INSERT DOMAIN RANDOMISATION IMAGE !!!!!!!!!!!!!!!!
+
+<center><iframe width="596" height="448" src="https://www.youtube.com/embed/5LpJUl7Ee3E" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></center>
+<center> The video showing domain randomization </center>
 
 
+<center><iframe width="596" height="336" src="https://www.youtube.com/embed/rLUoR4EkUTo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> </center>
+<center>Reach Task using full RL-based model </center>
+<center><iframe width="596" height="336" src="https://www.youtube.com/embed/8auil7amjDI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> </center>
+<center>Reach Task using full RL-based model variation in camera position </center>
+<center> <iframe width="596" height="336" src="https://www.youtube.com/embed/xiiS1zGqjCQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></center>
+<center>Reach Task using RL-based model with pretrained feature extractor and depth information </center>
 
-
-
-
-Reach Task using full RL-based model
+<!-- Reach Task using full RL-based model
 {% include embed.html url="https://www.youtube.com/embed/rLUoR4EkUTo" %}
 Reach Task using full RL-based model variation in camera position
 {% include embed.html url="https://www.youtube.com/embed/8auil7amjDI"%}
 Reach Task using RL-based model with pretrained feature extractor and depth information
-{% include embed.html url="https://www.youtube.com/embed/xiiS1zGqjCQ"%}
+{% include embed.html url="https://www.youtube.com/embed/xiiS1zGqjCQ"%} -->
