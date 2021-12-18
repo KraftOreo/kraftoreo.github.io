@@ -2,6 +2,7 @@
 title: "Transfering Simulated Learning to Real Robots "
 layout: post
 date: 2021-12-17 08:31:19 +0700
+mathjax: true
 ---
 
 Recently, Robotics has become a major playfield for Reinforcement Learning. Learning-based algorithms have the potential to enable robots to acquire complex behaviors adaptively in unstructured environments by leveraging data collected from the environment. In particular, with reinforcement learning, robots learn novel behaviors through trial and error interactions. This unburdens the human operator from having to pre-program accurate behaviors. This is particularly important as we deploy robots in scenarios where the environment may not be known.
