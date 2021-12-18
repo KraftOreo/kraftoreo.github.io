@@ -4,8 +4,8 @@ layout: post
 mathjax: true
 date: 2021-12-17 08:31:19 +0700
 ---
-<!--  -->
- Lately, Robotics has become a major playfield for Reinforcement Learning. Learning-based algorithms have the potential to enable robots to acquire complex behaviors adaptively in unstructured environments by leveraging data collected from the environment. In particular, with reinforcement learning, robots learn novel behaviors through trial and error interactions. This unburdens the human operator from having to pre-program accurate behaviors. This is particularly important as we deploy robots in scenarios where the environment may not be known.
+
+Lately, Robotics has become a major playfield for Reinforcement Learning. Learning-based algorithms have the potential to enable robots to acquire complex behaviors adaptively in unstructured environments by leveraging data collected from the environment. In particular, with reinforcement learning, robots learn novel behaviors through trial and error interactions. This unburdens the human operator from having to pre-program accurate behaviors. This is particularly important as we deploy robots in scenarios where the environment may not be known.
 
 However, not only is training in the real world very time consuming, it also puts the robots and the environment in considerable risk. To evade these problems, training in simulation and then transferring to the real is becoming a popular strategy. Training in simulation can lead to substantial speed-ups because of the possibility of parallelization without any significant extra costs.
 
@@ -17,8 +17,16 @@ Our project deals with exploring methods to reduce this sim2real gap and deploy 
 Training in simulaiton provides many advatages. The most important amongst those is access to state variables instead of just the images. This allows us to speed up training by using [Asymmetric Actor Critic](https://arxiv.org/abs/1710.06542) model.
 The Asymmetric Actor Critic uses a [DDPG](https://spinningup.openai.com/en/latest/algorithms/ddpg.html) based approach, where the Actor gets image-based inputs but the Critic at the time of training gets state-based input.
 
+
+### Feature Extractor
+We use a 3 layer Conv network to extract the current state (a 3D coordinate of the end effector's possition) from the Current state image (84x84x3) input. It is this state estimation using the feature extractor that is passed to the Actor in Test and Training time. Besides the RL loss that is backpropagated by the Actor Network, we also add an additional loss called the Bottleneck loss on the feature exctractor to speed up training. The Bottleneck loss minimizes the difference between the actual state (which we get at the time of training) and the predicted loss by the feature extractor.
+
+The loss function for the feature extractor looks something like -
+
+$$ L_f = L_{RL}  + MSE(s,s_{predicted}) $$
+
 ### Actor Network
-The Actor takes in the current state image as an (84x84x3) and the goal as a 3D coordinate as input, and outputs a 3D vector equivalent of the displacement in the 3D space.
+The Actor takes in the predicted current state output from the feature extractor and the goal as a 3D coordinate as input, and outputs a 3D vector equivalent of the displacement in the 3D space.
 The actor optamizes on the loss-
 
 $$ L_a = -E_s[Q(s,\pi(s))] $$
