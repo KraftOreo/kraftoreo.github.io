@@ -55,7 +55,7 @@ Sometimes it is hard to gather Depth perception from plain images which leads to
 
 Here's the juxtaposition of the depth information yielded by the simulation and the real world-
 Depth image from simulation
-![Depth](../assets/files/depth.png | width=50%)
+![Depth](../assets/files/depth.png | width=350)
 Depth image from RealSense2 Camera
 {% include embed.html url="https://www.youtube.com/embed/FYNW7Zaa-lo" %}
 
