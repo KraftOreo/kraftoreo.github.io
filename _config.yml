@@ -13,6 +13,7 @@ show_frame: false           # adds a gray frame to the site
 show_social: true          # fafa
 show_sidebar: true        # show a sidebar instead of the usual header
 minimal: false             # use a dark header
+mathjax: true
 
 # Menu
 defaults:
