@@ -45,6 +45,8 @@ $$ L_c = ( Q(s_t,a_t) - r_t - \gamma Q_T(s_{t+1},\pi(s_{t+1}) )  )^2 $$
 
 Here the $$ Q_T $$ is predicted using the Target networks (Actor and Critic) which are updated using Polyak averaging of the weights of the corresponding current Actor and Critic networks.
 
+![Flowcharts](../assets/files/sim2real.png)
+<center>The architecture of our network</center>
 # Adapting to the Real World
 Here, we discuss the optamisations we made during training and deployment time to bridge the sim2real gap.
 
