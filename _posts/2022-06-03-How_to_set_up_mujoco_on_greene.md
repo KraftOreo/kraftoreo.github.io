@@ -22,46 +22,46 @@ To set up mujoco on Greene HPC, the original tutorial is no longer working from 
    Note that there's no more any mujoco*.ext3 file system but only *sqf (Squashed file system) file. You can use these *.sqf file equally as *.ext3 file.
 5. Now you can set up your singularity.sh file
     {% highlight bash %}
-    #!/bin/bash
+        #!/bin/bash
 
-    # https://stackoverflow.com/questions/1668649/how-to-keep-quotes-in-bash-arguments
-    args=''
-    for i in "$@"; do
-        i="${i//\\/\\\\}"
-        args="$args \"${i//\"/\\\"}\""
-    done
+        # https://stackoverflow.com/questions/1668649/how-to-keep-quotes-in-bash-arguments
+        args=''
+        for i in "$@"; do
+            i="${i//\\/\\\\}"
+            args="$args \"${i//\"/\\\"}\""
+        done
 
-    if [ "$args" == "" ]; then args=/bin/bash; fi
+        if [ "$args" == "" ]; then args=/bin/bash; fi
 
-    module purge
+        module purge
 
-    export PATH=/share/apps/singularity/bin:$PATH
+        export PATH=/share/apps/singularity/bin:$PATH
 
-    # file systems
-    export SINGULARITY_BINDPATH=/mnt,/scratch
-    if [ -d /state/partition1 ]; then
-        export SINGULARITY_BINDPATH=$SINGULARITY_BINDPATH,/state/partition1
-    fi
+        # file systems
+        export SINGULARITY_BINDPATH=/mnt,/scratch
+        if [ -d /state/partition1 ]; then
+            export SINGULARITY_BINDPATH=$SINGULARITY_BINDPATH,/state/partition1
+        fi
 
-    # SLURM related
-    export SINGULARITY_BINDPATH=$SINGULARITY_BINDPATH,/opt/slurm,/usr/lib64/libmunge.so.2.0.0,/usr/lib64/libmunge.so.2,/var/run/munge,/etc/passwd
-    export SINGULARITYENV_PREPEND_PATH=/opt/slurm/bin
+        # SLURM related
+        export SINGULARITY_BINDPATH=$SINGULARITY_BINDPATH,/opt/slurm,/usr/lib64/libmunge.so.2.0.0,/usr/lib64/libmunge.so.2,/var/run/munge,/etc/passwd
+        export SINGULARITYENV_PREPEND_PATH=/opt/slurm/bin
 
-    if [ -d /opt/slurm/lib64 ]; then
-        export SINGULARITY_CONTAINLIBS=$(echo /opt/slurm/lib64/libpmi* | xargs | sed -e 's/ /,/g')
-    fi
+        if [ -d /opt/slurm/lib64 ]; then
+            export SINGULARITY_CONTAINLIBS=$(echo /opt/slurm/lib64/libpmi* | xargs | sed -e 's/ /,/g')
+        fi
 
-    if [[ $(hostname -s) =~ ^g ]]; then nv="--nv"; fi
+        if [[ $(hostname -s) =~ ^g ]]; then nv="--nv"; fi
 
-    singularity exec $nv \
-            --overlay /scratch/$USER/<workdir>/<your_overly_file_system>.ext3:ro \
-            --overlay /scratch/$USER/<workdir>/mujoco<your_sqf_file>.sfq:ro \
-            /scratch/work/public/singularity/cuda11.0-cudnn8-devel-ubuntu18.04.sif \
-            /bin/bash -c "
-    source /ext3/env.sh
-    conda activate <your environment>
-    $args
-    "
+        singularity exec $nv \
+                --overlay /scratch/$USER/<workdir>/<your_overly_file_system>.ext3:ro \
+                --overlay /scratch/$USER/<workdir>/mujoco<your_sqf_file>.sfq:ro \
+                /scratch/work/public/singularity/cuda11.0-cudnn8-devel-ubuntu18.04.sif \
+                /bin/bash -c "
+        source /ext3/env.sh
+        conda activate <your environment>
+        $args
+        "
     {% endhighlight %}
 
 
