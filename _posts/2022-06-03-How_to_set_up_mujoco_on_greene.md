@@ -64,6 +64,10 @@ To set up mujoco on Greene HPC, the original tutorial is no longer working from 
         "
     {% endhighlight %}
 
+## Some other tips on Greene
+If you want to upgrade CMake or GCC on you singularity, use conda to install them. 
+1. Install CMake `conda install -c anaconda cmake`([https://anaconda.org/anaconda/cmake](https://anaconda.org/anaconda/cmake))
+2. Install GCC `conda install -c conda-forge gcc` ([https://anaconda.org/conda-forge/gcc](https://anaconda.org/conda-forge/gcc))
 
 
 <!-- ## MathJax
