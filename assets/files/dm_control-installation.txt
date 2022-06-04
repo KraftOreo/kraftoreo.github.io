@@ -1,0 +1,173 @@
+
+There is no folder $HOME/.mujoco in the beginning, working on a Nvidia GPU node.
+
+Singularity OS image: /scratch/work/public/singularity/cuda11.1.1-cudnn8-devel-ubuntu20.04.sif
+
+Working directory: /vast/wang/dm_control-20220225
+
+cp -rp /scratch/work/public/overlay-fs-ext3/overlay-15GB-500K.ext3.gz .
+gunzip overlay-15GB-500K.ext3.gz
+mv overlay-15GB-500K.ext3 urlb.ext3
+
+Launch Singularity interactivly, bind /share/apps in order to use shell script /share/apps/utils/singularity-conda/setup-conda.bash 
+
+singularity \
+  exec --nv \
+  --bind /share/apps \
+  --bind /usr/share/glvnd/egl_vendor.d/10_nvidia.json \
+  --overlay /vast/wang/dm_control-20220225/urlb.ext3 \
+  /scratch/work/public/singularity/cuda11.1.1-cudnn8-devel-ubuntu20.04.sif \
+  /bin/bash 
+
+https://github.com/deepmind/dm_control/tree/75939a0eca707e0e70cfb34370ca250a613d6e93
+
+cd /ext3
+wget https://github.com/deepmind/mujoco/releases/download/2.1.0/mujoco210-linux-x86_64.tar.gz
+tar -vxzf mujoco210-linux-x86_64.tar.gz
+#export MJLIB_PATH=/ext3/mujoco210/bin/libmujoco210.so
+
+We also need a copy inside ~/.mujoco because some packages installtion will use the header files there
+
+mkdir -p ~/.mujoco
+cd ~/.mujoco
+wget https://github.com/deepmind/mujoco/releases/download/2.1.0/mujoco210-linux-x86_64.tar.gz
+tar -vxzf mujoco210-linux-x86_64.tar.gz
+
+To setup miniconda with wrapper script
+
+cd /vast/wang/dm_control-20220225
+bash /share/apps/utils/singularity-conda/setup-conda.bash 
+
+Now miniconda is ready.
+
+[cuda11.1.1-cudnn8-devel-ubuntu20.04.sif wang@gr068 dm_control-20220225]$ source /ext3/env.sh 
+[cuda11.1.1-cudnn8-devel-ubuntu20.04.sif wang@gr068 dm_control-20220225]$ which python
+/ext3/miniconda3/bin/python
+[cuda11.1.1-cudnn8-devel-ubuntu20.04.sif wang@gr068 dm_control-20220225]$ which conda
+/ext3/miniconda3/bin/conda
+[cuda11.1.1-cudnn8-devel-ubuntu20.04.sif wang@gr068 dm_control-20220225]$ 
+
+Git clone
+
+git clone https://github.com/rll-research/url_benchmark.git
+cd url_benchmark
+cp -rp conda_env.yml conda_env.yml-20220225
+
+Comment out this line from conda_env.yml
+#- mujoco_py==2.0.2.13
+
+Change dm_control to use the last version which supports MuJoCo 210,
+    #- git+git://github.com/deepmind/dm_control.git
+    - git+git://github.com/deepmind/dm_control.git@mujoco_2.1.0_eol
+
+Now setup new conda envirorment inside /ext3/urlb
+
+conda env create -p /ext3/urlb --file conda_env.yml
+
+conda activate /ext3/urlb
+
+Download mujoco-py 2.1.2.14
+
+wget https://github.com/openai/mujoco-py/archive/refs/tags/v2.1.2.14.tar.gz
+tar -vxzf v2.1.2.14.tar.gz
+
+Modify the file
+mujoco-py-2.1.2.14/mujoco_py/builder.py
+
+add these lines after line 30 for Singularity, current implementation only supports docker and host
+
+singularity_path = '/.singularity.d/libs'
+    if exists(singularity_path) :
+        return singularity_path 
+
+def get_nvidia_lib_dir():
+    exists_nvidia_smi = subprocess.call("type nvidia-smi", shell=True,
+                                        stdout=subprocess.PIPE, stderr=subprocess.PIPE) == 0
+    if not exists_nvidia_smi:
+        return None
+    
+    singularity_path = '/.singularity.d/libs'
+    if exists(singularity_path) :
+        return singularity_path 
+  
+    docker_path = '/usr/local/nvidia/lib64'
+    if exists(docker_path):
+        return docker_path
+
+    nvidia_path = '/usr/lib/nvidia'
+    if exists(nvidia_path):
+        return nvidia_path
+
+    paths = glob.glob('/usr/lib/nvidia-[0-9][0-9][0-9]')
+    paths = sorted(paths)
+    if len(paths) == 0:
+        return None
+    if len(paths) > 1:
+        print("Choosing the latest nvidia driver: %s, among %s" % (paths[-1], str(paths)))
+
+    return paths[-1]
+
+
+Now to install mujoco-py-2.1.2.14
+
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/wang/.mujoco/mujoco210/bin
+
+cd mujoco-py-2.1.2.14
+pip --no-cache-dir install . -I
+
+Now to test
+
+export MUJOCO_GL="egl"
+python -c "from dm_control import mujoco"
+python -c "import mujoco_py; print('gpu' in str(mujoco_py.cymj).split('/')[-1])"
+
+(/ext3/urlb) [cuda11.1.1-cudnn8-devel-ubuntu20.04.sif wang@gr068 ~]$ python -c "import mujoco_py; print('gpu' in str(mujoco_py.cymj).split('/')[-1])"
+True
+(/ext3/urlb) [cuda11.1.1-cudnn8-devel-ubuntu20.04.sif wang@gr068 ~]$ export MUJOCO_GL="egl"
+(/ext3/urlb) [cuda11.1.1-cudnn8-devel-ubuntu20.04.sif wang@gr068 ~]$ python -c "from dm_control import mujoco"
+(/ext3/urlb) [cuda11.1.1-cudnn8-devel-ubuntu20.04.sif wang@gr068 ~]$ 
+
+Run real job to test:
+
+python pretrain.py agent=proto domain=walker obs_type=pixels
+
+(/ext3/urlb) [cuda11.1.1-cudnn8-devel-ubuntu20.04.sif wang@gr068 url_benchmark]$ pwd
+/vast/wang/dm_control-20220225/url_benchmark
+(/ext3/urlb) [cuda11.1.1-cudnn8-devel-ubuntu20.04.sif wang@gr068 url_benchmark]$ export CUDA_VISIBLE_DEVICES=1
+(/ext3/urlb) [cuda11.1.1-cudnn8-devel-ubuntu20.04.sif wang@gr068 url_benchmark]$ python pretrain.py agent=proto domain=walker obs_type=pixels
+workspace: /vast/wang/dm_control-20220225/url_benchmark/exp_local/2022.02.25/221120_proto
+| eval  | F: 0 | S: 0 | E: 0 | L: 1000 | R: 126.2443 | T: 0:00:00
+| train | F: 5000 | S: 5000 | E: 5 | L: 1000 | R: 105.9282 | FPS: 7.4397 | T: 0:02:14
+| train | F: 6000 | S: 6000 | E: 6 | L: 1000 | R: 124.9999 | FPS: 10.8394 | T: 0:03:46
+
+
+Now after setup
+
+export MJLIB_PATH=/ext3/mujoco210/bin/libmujoco210.so
+
+we will not need ~/.mujoco folder any more, all packages are installed inside /ext3 in overlay file.
+
+singularity exec --nv --bind /usr/share/glvnd/egl_vendor.d/10_nvidia.json --overlay /vast/wang/dm_control-20220225/urlb.ext3:ro /scratch/work/public/singularity/cuda11.1.1-cudnn8-devel-ubuntu20.04.sif /bin/bash
+
+[wang@gr068 dm_control-20220225]$ pwd
+/vast/wang/dm_control-20220225
+[wang@gr068 dm_control-20220225]$ singularity exec --nv --bind /usr/share/glvnd/egl_vendor.d/10_nvidia.json --overlay /vast/wang/dm_control-20220225/urlb.ext3:ro /scratch/work/public/singularity/cuda11.1.1-cudnn8-devel-ubuntu20.04.sif /bin/bash
+[cuda11.1.1-cudnn8-devel-ubuntu20.04.sif wang@gr068 dm_control-20220225]$ source /ext3/env.sh 
+[cuda11.1.1-cudnn8-devel-ubuntu20.04.sif wang@gr068 dm_control-20220225]$ conda activate /ext3/urlb
+(/ext3/urlb) [cuda11.1.1-cudnn8-devel-ubuntu20.04.sif wang@gr068 dm_control-20220225]$ export MJLIB_PATH=/ext3/mujoco210/bin/libmujoco210.so
+(/ext3/urlb) [cuda11.1.1-cudnn8-devel-ubuntu20.04.sif wang@gr068 dm_control-20220225]$ export CUDA_VISIBLE_DEVICES=1
+(/ext3/urlb) [cuda11.1.1-cudnn8-devel-ubuntu20.04.sif wang@gr068 dm_control-20220225]$ cd url_benchmark/
+(/ext3/urlb) [cuda11.1.1-cudnn8-devel-ubuntu20.04.sif wang@gr068 url_benchmark]$ python pretrain.py agent=proto domain=walker obs_type=pixels
+workspace: /vast/wang/dm_control-20220225/url_benchmark/exp_local/2022.02.25/222839_proto
+| eval  | F: 0 | S: 0 | E: 0 | L: 1000 | R: 126.2443 | T: 0:00:00
+| train | F: 5000 | S: 5000 | E: 5 | L: 1000 | R: 105.9343 | FPS: 7.4312 | T: 0:02:14
+| train | F: 6000 | S: 6000 | E: 6 | L: 1000 | R: 92.3303 | FPS: 10.7863 | T: 0:03:47
+| train | F: 7000 | S: 7000 | E: 7 | L: 1000 | R: 105.0062 | FPS: 10.8192 | T: 0:05:19
+| train | F: 8000 | S: 8000 | E: 8 | L: 1000 | R: 99.1187 | FPS: 10.7728 | T: 0:06:52
+| train | F: 9000 | S: 9000 | E: 9 | L: 1000 | R: 62.4406 | FPS: 10.7544 | T: 0:08:25
+| train | F: 10000 | S: 10000 | E: 10 | L: 1000 | R: 65.8983 | FPS: 10.7826 | T: 0:09:58
+| eval  | F: 10000 | S: 10000 | E: 10 | L: 1000 | R: 43.5394 | T: 0:09:58
+| train | F: 11000 | S: 11000 | E: 11 | L: 1000 | R: 59.4224 | FPS: 8.6893 | T: 0:11:53
+| train | F: 12000 | S: 12000 | E: 12 | L: 1000 | R: 191.3481 | FPS: 10.8178 | T: 0:13:25
+| train | F: 13000 | S: 13000 | E: 13 | L: 1000 | R: 60.2606 | FPS: 10.8624 | T: 0:14:57
+| train | F: 14000 | S: 14000 | E: 14 | L: 1000 | R: 24.2137 | FPS: 10.8225 | T: 0:16:30

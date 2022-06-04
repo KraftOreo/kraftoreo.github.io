@@ -1,10 +1,12 @@
 ---
-title:  "How to set up Mujoco on Greene"
+title:  "How to set up Mujoco and Polyfempy on Greene and Singularity"
 mathjax: true
 layout: post
 categories: media
 ---
 
+# Set up Mujoco and Mujoco_py on Greene
+## Approach One
 To set up mujoco on Greene HPC, the original tutorial is no longer working from [Original Tutorial](https://www.notion.so/Setting-up-Mujoco-and-MPI-on-Greene-0fad2a6ac9e54115960f57a69e6ba6dd). The basic steps are still the same, but there are a few minor changes.
 * Steps
 1. Set up you own Singularity image and overlay according to [Singularity Tutorial](https://github.com/nyu-dl/cluster-support/tree/master/greene).
@@ -69,6 +71,160 @@ If you want to upgrade CMake or GCC on you singularity, use conda to install the
 1. Install CMake `conda install -c anaconda cmake`([https://anaconda.org/anaconda/cmake](https://anaconda.org/anaconda/cmake))
 2. Install GCC `conda install -c conda-forge gcc` ([https://anaconda.org/conda-forge/gcc](https://anaconda.org/conda-forge/gcc))
 
+## Approach Two
+In approach one, we included overlay file system `--overlay /scratch/$USER/<workdir>/mujoco<your_sqf_file>.sfq:ro`. In this file system, an /ext3 folder, /ext3/miniconda3 folder and /ext3/env.sh have already existed because these are required to set up mujoco in Singluarity. However, since this file system is read only, you cannot install or creat new conda environments in `ext3/miniconda3/envs` because you have no permission to modify this folder. The only option is create your own ~/.condarc to set new `envs_dirs` and `pkgs_dirs`. In approach 2, we can build mujoco from scratch. Here's how we do it:
+We choose Singularity OS image: /scratch/work/public/singularity/cuda11.1.1-cudnn8-devel-ubuntu20.04.sif with cuda support:
+* Steps
+  1. ```
+        cp -rp /scratch/work/public/overlay-fs-ext3/overlay-50GB-10M.ext3.gz .
+        gunzip overlay-15GB-500K.ext3.gz
+        mv overlay-15GB-500K.ext3 ipc.ext3 
+        ```
+        
+        Create your own file system(In my case, I am also creating the file system for ipc, so I rename my file system to ipc.ext3)
+
+  2. Launch Singularity interactivly, bind `/share/apps` in order to use shell script `/share/apps/utils/singularity-conda/setup-conda.bash`
+   
+        ```
+        singularity \
+        exec --nv \
+        --bind /share/apps \
+        --bind /usr/share/glvnd/egl_vendor.d/50_mesa.json \
+        --overlay <path-to-working-dir>/ipc.ext3 \
+        /scratch/work/public/singularity/cuda11.1.1-cudnn8-devel-ubuntu20.04.sif \
+        /bin/bash
+        ```
+
+        Here, `--bind /usr/share/glvnd/egl_vendor.d/50_mesa.json` is to include the `<GL/osmesa.h>` during installation of mujoco_py.
+    1. Get Mujoco210 and unzip it
+        ```
+        cd /ext3
+        wget https://github.com/deepmind/mujoco/releases/download/2.1.0/mujoco210-linux-x86_64.tar.gz
+        tar -vxzf mujoco210-linux-x86_64.tar.gz
+        ```
+    2. We also need a copy inside ~/.mujoco because some packages installtion will use the header files there
+        ```
+        mkdir -p ~/.mujoco
+        cd ~/.mujoco
+        wget https://github.com/deepmind/mujoco/releases/download/2.1.0/mujoco210-linux-x86_64.tar.gz
+        tar -vxzf mujoco210-linux-x86_64.tar.gz
+        ```
+    3. To setup miniconda with wrapper script
+        ```
+        cd /ext3
+        bash /share/apps/utils/singularity-conda/setup-conda.bash 
+        ```
+        Now miniconda is ready.
+    4.  Enable conda by `source /ext3/env.sh`
+    5.  Create your own conda environment. In my case, I will be using the `environment.yml` from [IPC-Robotics](https://github.com/arvigj/ipc-robotics/tree/duo_edit).
+        ```
+        conda env create -f environment.yml
+        ```
+    6. Activate your environment `conda activate ipc-robotics`
+    7. Download mujoco-py 2.1.2.14 to anywhere you want and unzip it:
+        ```
+        wget https://github.com/openai/mujoco-py/archive/refs/tags/v2.1.2.14.tar.gz
+        tar -vxzf v2.1.2.14.tar.gz
+        ```
+    8.  Modify the file mujoco-py-2.1.2.14/mujoco_py/builder.py and add these lines after line 30 for Singularity, current implementation only supports docker and host.
+        ```
+        singularity_path = '/.singularity.d/libs'
+        if exists(singularity_path) :
+            return singularity_path 
+        ```
+        which makes the original function look like:
+        {% highlight python %}
+            def get_nvidia_lib_dir():
+                exists_nvidia_smi = subprocess.call("type nvidia-smi", shell=True,
+                                        stdout=subprocess.PIPE, stderr=subprocess.PIPE) == 0
+                if not exists_nvidia_smi:
+                    return None
+                
+                singularity_path = '/.singularity.d/libs'
+                if exists(singularity_path) :
+                    return singularity_path 
+            
+                docker_path = '/usr/local/nvidia/lib64'
+                if exists(docker_path):
+                    return docker_path
+
+                nvidia_path = '/usr/lib/nvidia'
+                if exists(nvidia_path):
+                    return nvidia_path
+
+                paths = glob.glob('/usr/lib/nvidia-[0-9][0-9][0-9]')
+                paths = sorted(paths)
+                if len(paths) == 0:
+                    return None
+                if len(paths) > 1:
+                    print("Choosing the latest nvidia driver: %s, among %s" % (paths[-1], str(paths)))
+
+                return paths[-1]
+                {% endhighlight %}
+    9.  Then we can install mujoco_py
+        ```
+        export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/.mujoco/mujoco210/bin
+
+        cd mujoco-py-2.1.2.14
+        pip --no-cache-dir install . -I
+        ```
+    10. Now we can create the env file for mujoco_py.
+        ```
+        touch /ext3/mujoco.sh
+        echo "export MUJOCO_GL=\"egl\"" >> /ext3/mujoco.sh
+        echo "export MJLIB_PATH=/ext3/mujoco210/bin/libmujoco210.so" >> /ext3/mujoco.sh
+        ```
+        Now every time you start your singluarity, you need to 
+        ```
+        source /ext3/env.sh
+        source /ext3/mujoco.sh
+        ```
+    Now Mujoco and Mujoco_py is set up on Greene.
+
+# Set up Polyfempy in Singularity
+We still need to use Singularity OS image: /scratch/work/public/singularity/cuda11.1.1-cudnn8-devel-ubuntu20.04.sif with cuda support. Note that any other ubuntu image whose version is lower than 20.04 will have potential problems.
+
+* Steps:
+    1. Use the file system created above to start singularity interactivly:
+        ```
+        singularity \
+        exec --nv \
+        --bind /share/apps \
+        --bind /usr/share/glvnd/egl_vendor.d/50_mesa.json \
+        --overlay <path-to-working-dir>/ipc.ext3 \
+        /scratch/work/public/singularity/cuda11.1.1-cudnn8-devel-ubuntu20.04.sif \
+        /bin/bash
+        ```
+    2. Enable conda
+        ```
+        source /ext3/env.sh
+        ```
+    3. Activate your environment
+        ```
+        conda activate ipc-robotics
+        ```
+    4. Use conda to install higher version of CMake
+        ```
+        conda install -c anaconda cmake
+        ```
+    5. Get polyfempy from source:
+        ```
+        git clone git@github.com:polyfem/polyfem-python.git
+        cd polyfem-python
+        ```
+    6. Install polyfempy from source 
+        ```
+        python setup.py install
+        ```
+    7. Waiting for installation to finish
+    8. We can do some tests:
+        ```
+        python
+        >>> import polyfempy as pf
+        >>> solver = pf.Solver()
+        >>> solver.set_log_level(3)
+        ```
+        
 
 <!-- ## MathJax
 
