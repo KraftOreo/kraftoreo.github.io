@@ -160,7 +160,8 @@ We choose Singularity OS image: /scratch/work/public/singularity/cuda11.1.1-cudn
                     print("Choosing the latest nvidia driver: %s, among %s" % (paths[-1], str(paths)))
 
                 return paths[-1]
-                {% endhighlight %}
+        {% endhighlight %}
+
     9.  Then we can install mujoco_py
         ```
         export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/.mujoco/mujoco210/bin
@@ -179,7 +180,8 @@ We choose Singularity OS image: /scratch/work/public/singularity/cuda11.1.1-cudn
         source /ext3/env.sh
         source /ext3/mujoco.sh
         ```
-    Now Mujoco and Mujoco_py is set up on Greene.
+
+    Now Mujoco and Mujoco_py are set up on Greene.
 
 # Set up Polyfempy in Singularity
 We still need to use Singularity OS image: /scratch/work/public/singularity/cuda11.1.1-cudnn8-devel-ubuntu20.04.sif with cuda support. Note that any other ubuntu image whose version is lower than 20.04 will have potential problems.
