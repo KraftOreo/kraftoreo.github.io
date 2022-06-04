@@ -181,6 +181,7 @@ We choose Singularity OS image: /scratch/work/public/singularity/cuda11.1.1-cudn
         source /ext3/mujoco.sh
         ```
 
+
     Now Mujoco and Mujoco_py are set up on Greene.
 
 # Set up Polyfempy in Singularity
