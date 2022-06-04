@@ -7,7 +7,7 @@ categories: media
 
 # Set up Mujoco and Mujoco_py on Greene
 ## Approach One
-To set up mujoco on Greene HPC, the original tutorial is no longer working from [Original Tutorial](https://www.notion.so/Setting-up-Mujoco-and-MPI-on-Greene-0fad2a6ac9e54115960f57a69e6ba6dd). The basic steps are still the same, but there are a few minor changes.
+To set up mujoco on Greene HPC(NYU), the original tutorial is no longer working from [Original Tutorial](https://www.notion.so/Setting-up-Mujoco-and-MPI-on-Greene-0fad2a6ac9e54115960f57a69e6ba6dd). The basic steps are still the same, but there are a few minor changes.
 * Steps
 1. Set up you own Singularity image and overlay according to [Singularity Tutorial](https://github.com/nyu-dl/cluster-support/tree/master/greene).
 2. Download mujoco200 or mujoco210(Newest version now) linux and unzip it inside ~/.mujoco
