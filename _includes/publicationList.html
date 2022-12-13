@@ -38,10 +38,6 @@
     border: 1px solid black;
   }
 
-  b {
-    font-weight: bold;
-    color: rgb(60, 58, 58);
-  }
 </style>
 <header>
   <h1>{{ include.title | default: page.title }}</h1>
@@ -77,6 +73,5 @@
          child.innerHTML = child.innerHTML.replace(/Duo Zhang/g, '<b>Duo Zhang</b>');
      }
   }
-  //rep();
   window.onload = rep;
 </script>
