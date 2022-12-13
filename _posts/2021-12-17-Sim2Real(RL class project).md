@@ -111,3 +111,24 @@ In our experiments, we can show that the performance of the model (our best mode
 # Future works
 1. Our ultimate goal is to train the robot to do Pick & Place task. However, this model takes days to train and we never managed to transfer the model to real world though it is doing a great job in the simulator.
 2. We want to use more cameras to feed the feature extractor with multiple images from different angles so that the model can get a better estimation of the distance and the configuration of the robot without getting depth information involved and that also the model won't be befuddled and bewildered when the robot is directly facing the camera frame and the whole body is almost vertical to the plane of the camera frame.
+
+
+<div id="disqus_thread"></div>
+<script>
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+    /*
+    var disqus_config = function () {
+    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://kraftoreo.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>

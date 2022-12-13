@@ -11,32 +11,38 @@ date_format: "%B %d, %Y"
 show_excerpts: false        # show article excerpts on the home page
 show_frame: false           # adds a gray frame to the site
 show_social: true          # fafa
-show_sidebar: true        # show a sidebar instead of the usual header
+show_sidebar: false # show a sidebar instead of the usual header
 minimal: false             # use a dark header
 mathjax: true
 
 # Menu
+
 defaults:
   - scope:
       path: "_files"
     values:
       files: true
+
 navigation:                # accepts {file, title, url, icon, sidebaricon}
   - {file: "index.html", title: "Home"}
+  - {file: "pub.html", title: "Publications"}
+  - {file: "archive.html", title: "Blogs"}
   - {url: "/assets/files/Duo_Zhang_CV.pdf", title: "CV"}
   - {url: "/assets/files/duo_zhang_ucla_poster.pdf", title: "Poster"}
-  # - {url: "Portfolio.pdf", title: "Portfolio"}
-  - {file: "blog.html", title: "Blogs"}
-#   - {file: "landscape.html", title: "Landscape Architecture"}
 
 external:                  # shows a footer with social links - for available icons see fontawesome.com/icons
   - {title: Mail, icon: envelope, url: "mailto:dz2140@nyu.edu"}
   - {title: Github, icon: github, url: "https://github.com/KraftOreo"}
-  - {title: Twitter, icon: twitter, url: "https://www.instagram.com/jtmacathy/"}
+  # - {title: Twitter, icon: twitter, url: "https://www.instagram.com/jtmacathy/"}
 
 comments:
-#  disqus_shortname: ""    # see https://disqus.com/
+ disqus_shortname: "kraftoreo"    # see https://disqus.com/
 #  isso_domain: ""         # see https://posativ.org/isso/
+
+collections:
+  publications:
+    output: true
+    permalink: /:collection/:name
 
 plugins:
  - jekyll-feed

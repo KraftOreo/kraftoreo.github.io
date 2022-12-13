@@ -1,0 +1,82 @@
+<style>
+  .pubitem {
+    margin: 2em 0;
+    line-height: 1em;
+  }
+
+  .pubtitle {
+    margin-bottom: 0.5em;
+    line-height: 1.2em;
+    font-weight: bold;
+    font-size: 130%;
+  }
+
+  .pubauthors {
+    font-size: 100%;
+  }
+
+  .pubinfo {
+    font-size: 100%;
+    margin-bottom: 0.75em;
+  }
+
+  .publinks {
+    font-size: 100%;
+  }
+
+  .pubteaser {
+    clear: both;
+  }
+
+  .pubteaser a {
+    float: left;
+    margin-right: 2em;
+  }
+
+  .pubteaser img {
+    width: 200px;
+    border: 1px solid black;
+  }
+
+  b {
+    font-weight: bold;
+    color: rgb(60, 58, 58);
+  }
+</style>
+<header>
+  <h1>{{ include.title | default: page.title }}</h1>
+</header>
+{% assign publication = site.publications | sort "years" %}
+{% for pub in publication %}
+<article>
+  <div class="pubitem">
+    <div class="pubtitle">{{ pub.title }}</div>
+    <div class="pubteaser">
+      <a href="{{pub.url}}">
+        <img src="/assets/files/images/publication-pages/{{ pub.slug }}/{{ pub.slug }}.png"
+          alt="{{pub.slug}} publication teaser" />
+      </a>
+    </div>
+    <div id="authors" class="pubauthors">{{ pub.authors }}</div>
+    <div class="pubinfo">{{ pub.publication }}, {{ pub.year}}</div>
+    <div class="pubinfo"><b>{{ pub.note }}</b></div>
+    <div class="publinks">
+      <a href="/assets/files/publications/{{ pub.slug }}.pdf"><i class="far fa-file-pdf"></i> PDF</a>&nbsp;&nbsp;
+      <a href={{pub.url}}><i class="fas fa-link"></i> Project Page</a>
+    </div>
+  </div>
+</article>
+{% endfor %}
+
+
+<script type="text/javascript">
+  function rep() {
+    var element = document.getElementsByClassName('pubauthors');
+     for(var i=0; i<element.length; i++){
+         var child = element[i];
+         child.innerHTML = child.innerHTML.replace(/Duo Zhang/g, '<b>Duo Zhang</b>');
+     }
+  }
+  //rep();
+  window.onload = rep;
+</script>
