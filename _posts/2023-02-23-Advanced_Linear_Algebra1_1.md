@@ -82,3 +82,24 @@ Now we can define vector spaces:
         
     </p>
 </div>
+<br>
+<div class=remarks>
+    <b>Remarks</b>
+    <p>
+        In any vector space \(X\),
+        <ol>
+            <li>The zero vector \(\textbf{0}\) is unique</li>
+            <p>
+                <b>Proof:</b>
+                Suppose the zero vector \(\textbf{0}\) is not unique, then we can assume there are two different zero vectors \(\textbf{0}_1, \textbf{0}_2\) in \(X\) (\(\textbf{0}_1\neq \textbf{0}_2\)). By the <mark class=red>identity</mark> property of a group, we have \(\textbf{0}_1 + \textbf{0}_2=\textbf{0}_1\) and \(\textbf{0}_1+ \textbf{0}_2=\textbf{0}_2\) which leads to a contradiction(\(\textbf{0}_1=\textbf{0}_2\))
+            </p> 
+            <li>\(0 \textbf{x}=\textbf{x}\) for all \(\textbf{x}\in X\)</li>
+            <p>
+                <b>Proof:</b>
+                Suppose there's an \(\textbf{x}\) satisfy \(0 \textbf{x}\neq \textbf{0}\)
+            </p>        
+            <li>\(-1 \textbf{x}=-\textbf{x}\) for all \(\textbf{x}\in X\)</li>
+        </ol>
+        
+    </p>
+</div>
