@@ -1,0 +1,14 @@
+{
+    // "editor.suggest.snippetsPreventQuickSuggestions": true,
+    "emmet.showSuggestionsAsSnippets": true,
+    // "emmet.triggerExpansionOnTab": true,
+    // "editor.tabCompletion": "on",
+    "editor.snippetSuggestions": "top",
+    "[markdown]":  {
+        "editor.quickSuggestions": true,
+    },
+    "editor.wordBasedSuggestions": false,
+    "editor.quickSuggestions": {
+      "other": "off"
+    }
+}
