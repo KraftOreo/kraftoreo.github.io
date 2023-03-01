@@ -5,7 +5,11 @@
     // "editor.tabCompletion": "on",
     "editor.snippetSuggestions": "top",
     "[markdown]":  {
-        "editor.quickSuggestions": true,
+        "editor.quickSuggestions": {
+          "comments": "on",
+          "strings": "on",
+          "other": "on"
+        },
     },
     "editor.wordBasedSuggestions": false,
     "editor.quickSuggestions": {

@@ -96,10 +96,40 @@ Now we can define vector spaces:
             <li>\(0 \textbf{x}=\textbf{x}\) for all \(\textbf{x}\in X\)</li>
             <p>
                 <b>Proof:</b>
-                Suppose there's an \(\textbf{x}\) satisfy \(0 \textbf{x}\neq \textbf{0}\)
+                Suppose there's an \(\textbf{x}\) satisfy \(0 \textbf{x}\neq \textbf{0}\), thus we can assume that there is a vector \(\textbf{a}\neq 0\) satisfies \(0 \textbf{x}=\textbf{a}\). Thus we have for any scalar \(c\neq 0\): $$
+                \begin{align*}
+                    c \textbf{v} &= (c+0) \textbf{v}\\
+                    &=c \textbf{v}+ 0 \textbf{v}\\
+                    &=c \textbf{v}+\textbf{a} 
+                \end{align*}
+                $$
+
+                If the equation \(c \textbf{v}=c \textbf{v}+ \textbf{a}\) holds, the vector \(\textbf{a}\) must be a zero vector other than \(0\), which leads to the contradiction that there can be only one zero vector in the vector space.
             </p>        
             <li>\(-1 \textbf{x}=-\textbf{x}\) for all \(\textbf{x}\in X\)</li>
+            <b>Proof:</b>
+            $$
+            \begin{align*}
+                -1 \textbf{x}+x&=-1 \textbf{x}+ 1 \textbf{x}\\
+                &=(-1+1) \textbf{x}\\   
+                &=0 \textbf{x}\\
+                &=\textbf{0}
+            \end{align*}
+            $$
+            which means \(-1 \textbf{x}\) is the inverse of \(\textbf{x}\). Thus we can conclude that \(-1 \textbf{x}=\textbf{x} \) 
         </ol>
+    </p>
+</div>
+<br>
+<div class=definition>
+<b>Definition</b>
+    <p>
+        <b><i>Linear Map:</i></b>
+        A <mark class=red><b>linear map</b></mark> between vector spaces \(X\) and \(Y\) over \(\mathbb{F}\) is a function \(\varphi: X \rightarrow Y\) satisfying:
+        <ul>
+            <li>\(\varphi(\textbf{v}+\textbf{w})=\varphi(\textbf{v})+\varphi(\textbf{w})\) <span>&nbsp;</span> for all \(\textbf{v,w}\in X\)</li>
+            <li>\(\varphi(a \textbf{v})=a\varphi (\textbf{v})\)<span>&nbsp;</span> for all \(a \in \mathbb{F}\)</li>
+        </ul>
         
     </p>
 </div>
