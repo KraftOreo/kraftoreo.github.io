@@ -4,8 +4,7 @@ title: Provably Robust Semi-Infinite Program Under Collision Constraints via Sub
 authors: Duo Zhang, Xifeng Gao, Kui Wu, Zherong Pan 
 publication: preprint on ArXiv 
 year: 2023 
-slug: traj_gen 
+slug: SIPTrajGen 
 doi: None 
-url: None 
-note: Due to the patent we are applying, the paper cannot be disclosed. 
+website: https://arxiv.org/pdf/2302.01135.pdf 
 ---
