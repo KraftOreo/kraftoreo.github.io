@@ -26,7 +26,7 @@ A group is <mark class=red><b>abelian</b></mark> if \(\textit{a}*\textit{b}=\tex
     <b>Definition</b>
     <p>
         <b><i>Field:</i></b>
-        A <mark class=red><b>field</b></mark> is a set \(\mathbb{F}\) or \(\textit{K}\) containing \(1 \neq 0\) with two binary operations: \(+\) and \(\dot\)(multiplication) such that:
+        A <mark class=red><b>field</b></mark> is a set \(\mathbb{F}\) or \(\textit{K}\) containing \(1 \neq 0\) with two binary operations: \(+\) and \(*\)(multiplication) such that:
         <ol>
             <li>\(\mathbb{F}\) is an abelian group under addition;</li>
             <li>\(\mathbb{F}\setminus \{0\}\) is an abelian group under multiplication;</li>
@@ -54,7 +54,7 @@ Now we can define vector spaces:
         A <mark class=red><b>vector space</b></mark> is a set \(X\)("vectors") over a filed \(\mathbb{F}\)("scalars") such that:
         <ol>
             <li>\(X\) is an <mark class=blue>abelian group</mark> under addition;</li>
-            <li>\(X\) is closed under <mark class=blue>scalar multiplication</mark>;</li>;
+            <li>\(X\) is closed under <mark class=blue>scalar multiplication</mark>;</li>
             <li>+ and * are "compatible" via natural <mark class=blue>associative</mark> and <mark class=blue>distributive</mark> laws relating the two:</li>
             $$
             \begin{align*}
@@ -130,6 +130,51 @@ Now we can define vector spaces:
             <li>\(\varphi(\textbf{v}+\textbf{w})=\varphi(\textbf{v})+\varphi(\textbf{w})\) <span>&nbsp;</span> for all \(\textbf{v,w}\in X\)</li>
             <li>\(\varphi(a \textbf{v})=a\varphi (\textbf{v})\)<span>&nbsp;</span> for all \(a \in \mathbb{F}\)</li>
         </ul>
+    </p>
+    An <mark class=red>isomorphism</mark> is a linear map that is bijective.
+</div>
+<br>
+<div class=proposition>
+<b>Propsition</b>
+    <p>
+        The two conditions for linearity above can be replaced by a single condition:
+        \(\varphi(a \textbf{v}+b \textbf{w})=a\varphi(\textbf{v})+b\varphi(\textbf{w})\), for all \(\textbf{v,w}\in X \text{ and } a,b \in \mathbb{F}\)
+    </p>
+</div>
+<br>
+<div class=random>
+<b>Examples of vector spaces</b>
+    <p>
+        <ol>
+            <li>
+                \(K^n=\{(a_1,\cdots,a_n):a_i \in K\}\) with \(K\) is a field. Addition and multiplication are defined compomentwise.
+            </li>
+            <li>
+                Set of functions \(\mathbb{R}\rightarrow \mathbb{R}\) with \(K=\mathbb{R}\)
+            </li>
+            <li>
+                Set of functions \(S \rightarrow K\) for an abitrary set \(S\).
+            </li>
+            <li>
+                Set of polynomials of degree \(< n\), with coefficients from \(K\).
+            </li>
+        </ol>
         
+    </p>
+</div>
+<br>
+<div class=remarks>
+    <b>Remarks</b>
+    <p>
+        In the list of the vector spaces above, #1 is isomorphic to #4, and to #3 if \(|S|=n\).
+        <p>
+            <b>Proof:</b>
+            <p>
+            The vector space of #4 can be represented as \(P=a_0+a_1 x +\cdots+a_{n-1}x^{n-1}\) where \(a_i  \in K, i = 0,\cdots,n-1\). So we can consider the mapping \(\varphi: K^n\rightarrow K[x]\) which is a bijective mapping. We can actually assume that this is not a bijective mapping, then two different vectors from \(K\): \(\textbf{a}=(a_1,\cdots,a_n)\), \(\textbf{a}'=(a'_1,\cdots,a'_n)\) can result to the same polynomial \(P=p_0+p_1 x+\cdots+p_{n-1}x^{n-1}\).Thus we can know that the polynomial basis \(1,x,\cdots,x^{n-1}\) is reducible which leads to contradiction. This #1 is isomorphic to #4.
+            </p>
+            <p>
+                For
+            </p>
+        </p>
     </p>
 </div>
