@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<title>Blog | Duo Zhang</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="Duo Zhang">
+<meta name="generator" content="Jekyll v3.9.3">
+<link rel="canonical" href="http://localhost:4000/blog/">
+
+<link rel="stylesheet" href="/assets/css/index.css">
+
+<link rel="alternate" href="/feed.xml" type="application/atom+xml" title="Duo Zhang">
+
+<link rel="stylesheet" href="/assets/katex/katex.min.css">
+<script defer src="/assets/katex/katex.min.js"></script>
+<script defer src="/assets/katex/contrib/auto-render.min.js" onload="renderMathInElement(document.body)"></script>
+
+
+
+
+
+
+
+<header>
+  <a href="/" class="title">Duo Zhang</a>
+  <script src="https://cdn.jsdelivr.net/npm/darkreader@4.9.44/darkreader.js">
+  document.getElementsByClassName('dark-mode-button')[0].onclick = function() {
+    darkmode()
+}
+function darkmode() {
+  let enabled = localStorage.getItem('dark-mode')
+
+  if (enabled === null) {
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        enable();
+    }
+  } else if (enabled === 'true') {
+    enable()
+  }
+
+  if (localStorage.getItem('dark-mode') === 'false') {
+      enable();
+  } else {
+      disable();
+  }
+}
+function enable()  {
+  DarkReader.setFetchMethod(window.fetch)
+  DarkReader.enable();
+  localStorage.setItem('dark-mode', 'true');
+}
+
+function disable() {
+  DarkReader.disable();
+  localStorage.setItem('dark-mode', 'false');
+}
+
+</script>
+<nav><a href="/" >Home</a><a href="/pub/" >Publications</a><a href="/archive/" >Blogs</a><a href="/assets/files/Duo_Zhang_CV.pdf" >CV</a><a href="/assets/files/duo_zhang_ucla_poster.pdf" >Poster</a><!-- <a class="dark-mode-button">
+    <svg class="icon">
+      <use xlink:href="/assets/fontawesome/icons.svg#moon"></use>
+    </svg>
+  </a> -->
+</nav>
+</header>
+
+  
+  <article>
+    <header>
+  <h1><a href="/Advanced_Linear_Algebra1_1/">Vector Spaces and Linearity</a></h1><time datetime="2023-02-23T00:00:00-05:00">February 23, 2023</time>
+</header>
+
+    <h1 id="algebraic-structures">Algebraic structures</h1>
+<p>To start, we need some basic information of algebraic structure:</p>
+<div class="definition">
+<b>Definition</b>
+<p>
+    <b><i>Group:</i></b>
+    A <b><mark class="red">group</mark></b> is a set \(\textit{G}\)  and associative binary opration * with:
+
+    <ul>
+        <li><b>closure:</b> \(\textit{a,b} \in \textit{G}\) implies \(\textit{a} * \textit{b} \in \textit{G}\)</li>
+        <li><b>identity:</b> there exists \(\textit{e} \in \textit{G}\) such that \(\textit{a}*\textit{e} = \textit{e}*\textit{a} =\textit{a}\) for all \( \textit{a}\in \textit{G}\);</li>
+        <li><b>inverses:</b> for all \(\textit{a} \in \textit{G}\), there is \(\textit{b} \in \textit{G}\) such that \(\textit{a}*\textit{b}=\textit{e}\)</li>
+    </ul>
+A group is <mark class="red"><b>abelian</b></mark> if \(\textit{a}*\textit{b}=\textit{b}*\textit{a}\) for all \(\textit{a},\textit{b} \in \textit{G}\)
+</p>
+</div>
+<p><br /></p>
+<div class="definition">
+    <b>Definition</b>
+    <p>
+        <b><i>Field:</i></b>
+        A <mark class="red"><b>field</b></mark> is a set \(\mathbb{F}\) or \(\textit{K}\) containing \(1 \neq 0\) with two binary operations: \(+\) and \(*\)(multiplication) such that:
+        <ol>
+            <li>\(\mathbb{F}\) is an abelian group under addition;</li>
+            <li>\(\mathbb{F}\setminus \{0\}\) is an abelian group under multiplication;</li>
+        </ol>
+    </p>
+</div>
+<p><br /></p>
+<div class="remarks">
+    <b>Remarks</b>
+    <p>
+        <ol>
+            <li>\(\mathbb{Q},\mathbb{R},\mathbb{C},\mathbb{Z}_p\)(prime \(p\)), \(\mathbb{Q}(\sqrt{2}):=\{a+b \sqrt{2}:a,b \in \mathbb{Q}\}\) are all fields</li>
+            <li>\(\mathbb{Z}\) is not a field. Nor is \(\mathbb{Z}_n\)(composite n)</li>
+            <li>The <i>additive identity</i> is 0, and the inverse of \(a\) is \(-a\)</li>
+            <li>the <i>multiplicative identity</i> is 1, and the inverse of \(a\) is \(a^{-1}\), or \(\frac{1}{a}\)</li>
+        </ol>
+    </p>
+</div>
+<h1 id="vector-spaces">Vector Spaces</h1>
+<p>Now we can define vector spaces:</p>
+<div class="definition">
+<b>Definition</b>
+    <p>
+        <b><i>Vector Space:</i></b>
+        A <mark class="red"><b>vector space</b></mark> is a set \(X\)("vectors") over a filed \(\mathbb{F}\)("scalars") such that:
+        <ol>
+            <li>\(X\) is an <mark class="blue">abelian group</mark> under addition;</li>
+            <li>\(X\) is closed under <mark class="blue">scalar multiplication</mark>;</li>
+            <li>+ and * are "compatible" via natural <mark class="blue">associative</mark> and <mark class="blue">distributive</mark> laws relating the two:</li>
+            $$
+            \begin{align*}
+                &amp; a(b \mathbf{v})=(ab)\mathbf{v}, &amp;&amp;\text{for all }a,b\in \mathbb{F}, \mathbf{v} \in X;\\
+                &amp; a(\mathbf{v}+\mathbf{w})=a\mathbf{v}+a\mathbf{w}, &amp; &amp;\text{for all }a\in \mathbb{F}, \mathbf{v},\mathbf{w} \in X;\\
+                &amp;(a+b)\mathbf{v}=a\mathbf{v}+b\mathbf{v},&amp; &amp;\text{for all }a,b\in \mathbb{F}, \textbf{v},\textbf{w}\in X;\\
+                &amp;1 \textbf{v}=\textbf{v},&amp; &amp;\text{for all } \textbf{v}\in X
+            \end{align*} 
+            $$ 
+        </ol>
+        
+    </p>
+</div>
+<p><br /></p>
+<div class="random">
+<b>Intuition</b>
+    <p>
+        Think of a vector space as a <mark class="blue">set of vectors</mark> that is:
+        <ol>
+            <li>
+                Closed under addition, subtraction, and scalar multiplication;
+            </li>
+            <li>Equipped with the "natural" associative and distributive laws</li>
+        </ol>
+        
+    </p>
+</div>
+<p><br /></p>
+<div class="remarks">
+    <b>Remarks</b>
+    <p>
+        In any vector space \(X\),
+        <ol>
+            <li>The zero vector \(\textbf{0}\) is unique</li>
+            <p>
+                <b>Proof:</b>
+                Suppose the zero vector \(\textbf{0}\) is not unique, then we can assume there are two different zero vectors \(\textbf{0}_1, \textbf{0}_2\) in \(X\) (\(\textbf{0}_1\neq \textbf{0}_2\)). By the <mark class="red">identity</mark> property of a group, we have \(\textbf{0}_1 + \textbf{0}_2=\textbf{0}_1\) and \(\textbf{0}_1+ \textbf{0}_2=\textbf{0}_2\) which leads to a contradiction(\(\textbf{0}_1=\textbf{0}_2\))
+            </p> 
+            <li>\(0 \textbf{x}=\textbf{x}\) for all \(\textbf{x}\in X\)</li>
+            <p>
+                <b>Proof:</b>
+                Suppose there's an \(\textbf{x}\) satisfy \(0 \textbf{x}\neq \textbf{0}\), thus we can assume that there is a vector \(\textbf{a}\neq 0\) satisfies \(0 \textbf{x}=\textbf{a}\). Thus we have for any scalar \(c\neq 0\): $$
+                \begin{align*}
+                    c \textbf{v} &amp;= (c+0) \textbf{v}\\
+                    &amp;=c \textbf{v}+ 0 \textbf{v}\\
+                    &amp;=c \textbf{v}+\textbf{a} 
+                \end{align*}
+                $$
+
+                If the equation \(c \textbf{v}=c \textbf{v}+ \textbf{a}\) holds, the vector \(\textbf{a}\) must be a zero vector other than \(0\), which leads to the contradiction that there can be only one zero vector in the vector space.
+            </p>        
+            <li>\(-1 \textbf{x}=-\textbf{x}\) for all \(\textbf{x}\in X\)</li>
+            <b>Proof:</b>
+            $$
+            \begin{align*}
+                -1 \textbf{x}+x&amp;=-1 \textbf{x}+ 1 \textbf{x}\\
+                &amp;=(-1+1) \textbf{x}\\   
+                &amp;=0 \textbf{x}\\
+                &amp;=\textbf{0}
+            \end{align*}
+            $$
+            which means \(-1 \textbf{x}\) is the inverse of \(\textbf{x}\). Thus we can conclude that \(-1 \textbf{x}=\textbf{x} \) 
+        </ol>
+    </p>
+</div>
+<p><br /></p>
+<div class="definition">
+<b>Definition</b>
+    <p>
+        <b><i>Linear Map:</i></b>
+        A <mark class="red"><b>linear map</b></mark> between vector spaces \(X\) and \(Y\) over \(\mathbb{F}\) is a function \(\varphi: X \rightarrow Y\) satisfying:
+        <ul>
+            <li>\(\varphi(\textbf{v}+\textbf{w})=\varphi(\textbf{v})+\varphi(\textbf{w})\) <span>&nbsp;</span> for all \(\textbf{v,w}\in X\)</li>
+            <li>\(\varphi(a \textbf{v})=a\varphi (\textbf{v})\)<span>&nbsp;</span> for all \(a \in \mathbb{F}\)</li>
+        </ul>
+    </p>
+    An <mark class="red">isomorphism</mark> is a linear map that is bijective.
+</div>
+<p><br /></p>
+<div class="proposition">
+<b>Propsition</b>
+    <p>
+        The two conditions for linearity above can be replaced by a single condition:
+        \(\varphi(a \textbf{v}+b \textbf{w})=a\varphi(\textbf{v})+b\varphi(\textbf{w})\), for all \(\textbf{v,w}\in X \text{ and } a,b \in \mathbb{F}\)
+    </p>
+</div>
+<p><br /></p>
+<div class="random">
+<b>Examples of vector spaces</b>
+    <p>
+        <ol>
+            <li>
+                \(K^n=\{(a_1,\cdots,a_n):a_i \in K\}\) with \(K\) is a field. Addition and multiplication are defined compomentwise.
+            </li>
+            <li>
+                Set of functions \(\mathbb{R}\rightarrow \mathbb{R}\) with \(K=\mathbb{R}\)
+            </li>
+            <li>
+                Set of functions \(S \rightarrow K\) for an abitrary set \(S\).
+            </li>
+            <li>
+                Set of polynomials of degree \(&lt; n\), with coefficients from \(K\).
+            </li>
+        </ol>
+        
+    </p>
+</div>
+<p><br /></p>
+<div class="remarks">
+    <b>Remarks</b>
+    <p>
+        In the list of the vector spaces above, #1 is isomorphic to #4, and to #3 if \(|S|=n\).
+        <p>
+            <b>Proof:</b>
+            <p>
+            The vector space of #4 can be represented as \(P=a_0+a_1 x +\cdots+a_{n-1}x^{n-1}\) where \(a_i  \in K, i = 0,\cdots,n-1\). So we can consider the mapping \(\varphi: K^n\rightarrow K[x]\) which is a bijective mapping. We can actually assume that this is not a bijective mapping, then two different vectors from \(K\): \(\textbf{a}=(a_1,\cdots,a_n)\), \(\textbf{a}'=(a'_1,\cdots,a'_n)\) can result to the same polynomial \(P=p_0+p_1 x+\cdots+p_{n-1}x^{n-1}\).Thus we can know that the polynomial basis \(1,x,\cdots,x^{n-1}\) is reducible which leads to contradiction. This #1 is isomorphic to #4.
+            </p>
+            <p>
+                For
+            </p>
+        </p>
+    </p>
+</div>
+
+    <div class="more"><a href="/Advanced_Linear_Algebra1_1/">read more</a></div>
+  </article>
+
+  <article>
+    <header>
+  <h1><a href="/How_to_set_up_mujoco_polyfempy_on_greene/">How to set up Mujoco and Polyfempy on Greene and Singularity</a></h1><time datetime="2022-06-03T00:00:00-04:00">June 03, 2022</time>
+</header>
+
+    <h1 id="set-up-mujoco-and-mujoco_py-on-greene">Set up Mujoco and Mujoco_py on Greene</h1>
+<h2 id="approach-one">Approach One</h2>
+<p>To set up mujoco on Greene HPC(NYU), the original tutorial is no longer working from <a href="https://www.notion.so/Setting-up-Mujoco-and-MPI-on-Greene-0fad2a6ac9e54115960f57a69e6ba6dd">Original Tutorial</a>. The basic steps are still the same, but there are a few minor changes.</p>
+<ul>
+  <li>Steps
+    <ol>
+      <li>Set up you own Singularity image and overlay according to <a href="https://github.com/nyu-dl/cluster-support/tree/master/greene">Singularity Tutorial</a>.</li>
+      <li>Download mujoco200 or mujoco210(Newest version now) linux and unzip it inside ~/.mujoco</li>
+      <li>If you are using mujoco200, please set go to <a href="https://www.roboti.us/license.html">Mjkey</a> and click on Activation key and download it. Then put the key to the bin subdirectory of your MuJoCo installation(e.g. ~/.mujoco/mujoco200/bin). If you are using mujoco210, then there’s no need to download the mjkey file. Just use it.</li>
+      <li>copy
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> /scratch/work/public/singularity/mujoco200-dep-cuda10.1-ubuntu18.04-20201207.sqf 
+</code></pre></div>        </div>
+        <p>to</p>
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> /scratch/$USER/&lt;workdir&gt;
+</code></pre></div>        </div>
+        <p>Or you can use any mujoco<em>.sqf files in folder <code class="language-plaintext highlighter-rouge">/scratch/work/public/singularity/</code> as long as it matches the cuda version you choose and the OS version in your singularity.
+ Note that there’s no more any mujoco</em>.ext3 file system but only *sqf (Squashed file system) file. You can use these *.sqf file equally as *.ext3 file.</p>
+      </li>
+      <li>Now you can set up your singularity.sh file</li>
+    </ol>
+  </li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">        <span class="c">#!/bin/bash</span>
+
+        <span class="c"># https://stackoverflow.com/questions/1668649/how-to-keep-quotes-in-bash-arguments</span>
+        <span class="nv">args</span><span class="o">=</span><span class="s1">''</span>
+        <span class="k">for </span>i <span class="k">in</span> <span class="s2">"</span><span class="nv">$@</span><span class="s2">"</span><span class="p">;</span> <span class="k">do
+            </span><span class="nv">i</span><span class="o">=</span><span class="s2">"</span><span class="k">${</span><span class="nv">i</span><span class="p">//\\/\\\\</span><span class="k">}</span><span class="s2">"</span>
+            <span class="nv">args</span><span class="o">=</span><span class="s2">"</span><span class="nv">$args</span><span class="s2"> </span><span class="se">\"</span><span class="k">${</span><span class="nv">i</span><span class="p">//\</span><span class="s2">"/</span><span class="se">\\\"</span><span class="s2">}</span><span class="se">\"</span><span class="s2">"</span><span class="p">
+        done
+
+        if [ </span><span class="s2">"</span><span class="nv">$args</span><span class="s2">"</span><span class="p"> == </span><span class="s2">""</span><span class="p"> ]; then args=/bin/bash; fi
+
+        module purge
+
+        export PATH=/share/apps/singularity/bin</span>:<span class="nv">$PATH</span><span class="p">
+
+        # file systems
+        export SINGULARITY_BINDPATH=/mnt,/scratch
+        if [ -d /state/partition1 ]; then
+            export SINGULARITY_BINDPATH=</span><span class="nv">$SINGULARITY_BINDPATH</span><span class="p">,/state/partition1
+        fi
+
+        # SLURM related
+        export SINGULARITY_BINDPATH=</span><span class="nv">$SINGULARITY_BINDPATH</span><span class="p">,/opt/slurm,/usr/lib64/libmunge.so.2.0.0,/usr/lib64/libmunge.so.2,/var/run/munge,/etc/passwd
+        export SINGULARITYENV_PREPEND_PATH=/opt/slurm/bin
+
+        if [ -d /opt/slurm/lib64 ]; then
+            export SINGULARITY_CONTAINLIBS=</span><span class="si">$(</span><span class="nb">echo</span> /opt/slurm/lib64/libpmi<span class="k">*</span> | xargs | <span class="nb">sed</span> <span class="nt">-e</span> <span class="s1">'s/ /,/g'</span><span class="si">)</span><span class="p">
+        fi
+
+        if [[ </span><span class="si">$(</span><span class="nb">hostname</span> <span class="nt">-s</span><span class="si">)</span><span class="p"> =~ ^g ]]; then nv=</span><span class="s2">"--nv"</span><span class="p">; fi
+
+        singularity exec </span><span class="nv">$nv</span><span class="p"> \
+                --overlay /scratch/</span><span class="nv">$USER</span><span class="p">/&lt;workdir&gt;/&lt;your_overly_file_system&gt;.ext3</span>:ro<span class="p"> \
+                --overlay /scratch/</span><span class="nv">$USER</span><span class="p">/&lt;workdir&gt;/mujoco&lt;your_sqf_file&gt;.sfq</span>:ro<span class="p"> \
+                /scratch/work/public/singularity/cuda11.0-cudnn8-devel-ubuntu18.04.sif \
+                /bin/bash -c </span><span class="s2">"
+        source /ext3/env.sh
+        conda activate &lt;your environment&gt;
+        </span><span class="nv">$args</span><span class="s2">
+        "</span><span class="p">
+    </span></code></pre></figure>
+
+<h2 id="some-other-tips-on-greene">Some other tips on Greene</h2>
+<p>If you want to upgrade CMake or GCC on you singularity, use conda to install them.</p>
+<ol>
+  <li>Install CMake <code class="language-plaintext highlighter-rouge">conda install -c anaconda cmake</code>(<a href="https://anaconda.org/anaconda/cmake">https://anaconda.org/anaconda/cmake</a>)</li>
+  <li>Install GCC <code class="language-plaintext highlighter-rouge">conda install -c conda-forge gcc</code> (<a href="https://anaconda.org/conda-forge/gcc">https://anaconda.org/conda-forge/gcc</a>)</li>
+</ol>
+
+<h2 id="approach-two">Approach Two</h2>
+<p>In approach one, we included overlay file system <code class="language-plaintext highlighter-rouge">--overlay /scratch/$USER/&lt;workdir&gt;/mujoco&lt;your_sqf_file&gt;.sfq:ro</code>. In this file system, an /ext3 folder, /ext3/miniconda3 folder and /ext3/env.sh have already existed because these are required to set up mujoco in Singluarity. However, since this file system is read only, you cannot install or creat new conda environments in <code class="language-plaintext highlighter-rouge">ext3/miniconda3/envs</code> because you have no permission to modify this folder. The only option is create your own ~/.condarc to set new <code class="language-plaintext highlighter-rouge">envs_dirs</code> and <code class="language-plaintext highlighter-rouge">pkgs_dirs</code>. In approach 2, we can build mujoco from scratch. Here’s how we do it:
+We choose Singularity OS image: /scratch/work/public/singularity/cuda11.1.1-cudnn8-devel-ubuntu20.04.sif with cuda support:</p>
+<ul>
+  <li>Steps
+    <ol>
+      <li>
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   cp -rp /scratch/work/public/overlay-fs-ext3/overlay-50GB-10M.ext3.gz .
+   gunzip overlay-15GB-500K.ext3.gz
+   mv overlay-15GB-500K.ext3 ipc.ext3 
+</code></pre></div>        </div>
+
+        <p>Create your own file system(In my case, I am also creating the file system for ipc, so I rename my file system to ipc.ext3)</p>
+      </li>
+      <li>
+        <p>Launch Singularity interactivly, bind <code class="language-plaintext highlighter-rouge">/share/apps</code> in order to use shell script <code class="language-plaintext highlighter-rouge">/share/apps/utils/singularity-conda/setup-conda.bash</code></p>
+
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   singularity \
+   exec --nv \
+   --bind /share/apps \
+   --bind /usr/share/glvnd/egl_vendor.d/50_mesa.json \
+   --overlay &lt;path-to-working-dir&gt;/ipc.ext3 \
+   /scratch/work/public/singularity/cuda11.1.1-cudnn8-devel-ubuntu20.04.sif \
+   /bin/bash
+</code></pre></div>        </div>
+
+        <p>Here, <code class="language-plaintext highlighter-rouge">--bind /usr/share/glvnd/egl_vendor.d/50_mesa.json</code> is to include the <code class="language-plaintext highlighter-rouge">&lt;GL/osmesa.h&gt;</code> during installation of mujoco_py.</p>
+      </li>
+      <li>Get Mujoco210 and unzip it
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> cd /ext3
+ wget https://github.com/deepmind/mujoco/releases/download/2.1.0/mujoco210-linux-x86_64.tar.gz
+ tar -vxzf mujoco210-linux-x86_64.tar.gz
+</code></pre></div>        </div>
+      </li>
+      <li>We also need a copy inside ~/.mujoco because some packages installtion will use the header files there
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> mkdir -p ~/.mujoco
+ cd ~/.mujoco
+ wget https://github.com/deepmind/mujoco/releases/download/2.1.0/mujoco210-linux-x86_64.tar.gz
+ tar -vxzf mujoco210-linux-x86_64.tar.gz
+</code></pre></div>        </div>
+      </li>
+      <li>To setup miniconda with wrapper script
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> cd /ext3
+ bash /share/apps/utils/singularity-conda/setup-conda.bash 
+</code></pre></div>        </div>
+        <p>Now miniconda is ready.</p>
+      </li>
+      <li>Enable conda by <code class="language-plaintext highlighter-rouge">source /ext3/env.sh</code></li>
+      <li>Create your own conda environment. In my case, I will be using the <code class="language-plaintext highlighter-rouge">environment.yml</code> from <a href="https://github.com/arvigj/ipc-robotics/tree/duo_edit">IPC-Robotics</a>.
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>conda env create -f environment.yml
+</code></pre></div>        </div>
+      </li>
+      <li>Activate your environment <code class="language-plaintext highlighter-rouge">conda activate ipc-robotics</code></li>
+      <li>Download mujoco-py 2.1.2.14 to anywhere you want and unzip it:
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> wget https://github.com/openai/mujoco-py/archive/refs/tags/v2.1.2.14.tar.gz
+ tar -vxzf v2.1.2.14.tar.gz
+</code></pre></div>        </div>
+      </li>
+      <li>Modify the file mujoco-py-2.1.2.14/mujoco_py/builder.py and add these lines after line 30 for Singularity, current implementation only supports docker and host.
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>singularity_path = '/.singularity.d/libs'
+if exists(singularity_path) :
+    return singularity_path 
+</code></pre></div>        </div>
+        <p>which makes the original function look like:</p>
+      </li>
+    </ol>
+  </li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python">            <span class="k">def</span> <span class="nf">get_nvidia_lib_dir</span><span class="p">():</span>
+                <span class="n">exists_nvidia_smi</span> <span class="o">=</span> <span class="n">subprocess</span><span class="p">.</span><span class="n">call</span><span class="p">(</span><span class="s">"type nvidia-smi"</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+                                        <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="p">.</span><span class="n">PIPE</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="p">.</span><span class="n">PIPE</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">exists_nvidia_smi</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="bp">None</span>
+                
+                <span class="n">singularity_path</span> <span class="o">=</span> <span class="s">'/.singularity.d/libs'</span>
+                <span class="k">if</span> <span class="n">exists</span><span class="p">(</span><span class="n">singularity_path</span><span class="p">)</span> <span class="p">:</span>
+                    <span class="k">return</span> <span class="n">singularity_path</span> 
+            
+                <span class="n">docker_path</span> <span class="o">=</span> <span class="s">'/usr/local/nvidia/lib64'</span>
+                <span class="k">if</span> <span class="n">exists</span><span class="p">(</span><span class="n">docker_path</span><span class="p">):</span>
+                    <span class="k">return</span> <span class="n">docker_path</span>
+
+                <span class="n">nvidia_path</span> <span class="o">=</span> <span class="s">'/usr/lib/nvidia'</span>
+                <span class="k">if</span> <span class="n">exists</span><span class="p">(</span><span class="n">nvidia_path</span><span class="p">):</span>
+                    <span class="k">return</span> <span class="n">nvidia_path</span>
+
+                <span class="n">paths</span> <span class="o">=</span> <span class="n">glob</span><span class="p">.</span><span class="n">glob</span><span class="p">(</span><span class="s">'/usr/lib/nvidia-[0-9][0-9][0-9]'</span><span class="p">)</span>
+                <span class="n">paths</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">paths</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">paths</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="bp">None</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">paths</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="k">print</span><span class="p">(</span><span class="s">"Choosing the latest nvidia driver: %s, among %s"</span> <span class="o">%</span> <span class="p">(</span><span class="n">paths</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="nb">str</span><span class="p">(</span><span class="n">paths</span><span class="p">)))</span>
+
+                <span class="k">return</span> <span class="n">paths</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        </code></pre></figure>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>9.  Then we can install mujoco_py
+    ```
+    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/.mujoco/mujoco210/bin
+
+    cd mujoco-py-2.1.2.14
+    pip --no-cache-dir install . -I
+    ```
+10. Now we can create the env file for mujoco_py.
+    ```
+    touch /ext3/mujoco.sh
+    echo "export MUJOCO_GL=\"egl\"" &gt;&gt; /ext3/mujoco.sh
+    echo "export MJLIB_PATH=/ext3/mujoco210/bin/libmujoco210.so" &gt;&gt; /ext3/mujoco.sh
+    ```
+    Now every time you start your singluarity, you need to 
+    ```
+    source /ext3/env.sh
+    source /ext3/mujoco.sh
+    ```
+</code></pre></div></div>
+
+
+    <div class="more"><a href="/How_to_set_up_mujoco_polyfempy_on_greene/">read more</a></div>
+  </article>
+
+  <article>
+    <header>
+  <h1><a href="/Sim2Real(RL-class-project)/">Transfering Simulated Learning to Real Robots</a></h1><time datetime="2021-12-16T20:31:19-05:00">December 16, 2021</time>
+</header>
+
+    <p>Lately, Robotics has become a major playfield for Reinforcement Learning. Learning-based algorithms have the potential to enable robots to acquire complex behaviors adaptively in unstructured environments by leveraging data collected from the environment. In particular, with reinforcement learning, robots learn novel behaviors through trial and error interactions. This unburdens the human operator from having to pre-program accurate behaviors. This is particularly important as we deploy robots in scenarios where the environment may not be known.</p>
+
+<p>However, not only is training in the real world very time-consuming, it also puts the robots and the environment at considerable risk. To evade these problems, training in simulation and then transferring to the real is becoming a popular strategy. Training in simulation can lead to substantial speed-ups because of the possibility of parallelization without any significant extra costs.</p>
+
+<p>But these models trained in simulation suffer from what is termed as the Reality Gap. This reality gap might arise because of multiple reasons such as omitting some physical phenomena, having inaccurate parameterized values of physical quantities or even small numerical approximations in typical solvers. One can argue that ideally all of these could be solved by building more accurate simulators, but that’s easier said than done. Moreover, the real world itself is non-stationary!</p>
+
+<p>Our project deals with exploring methods to reduce this sim2real gap and deploy a model trained to do the Reach task in simulation on a real Xarm7 robot. Our goal is to deploy the model in the real world, with nothing but images as the current state input.</p>
+
+<h1 id="training-setup">Training Setup</h1>
+<p>We use Mujoco for simulating our environment and depicted the real robot setup in terms of color and camera position as closely as possible.
+Training in simulaiton provides many advatages. The most important amongst those is access to state variables instead of just the images. This allows us to speed up training by using <a href="https://arxiv.org/abs/1710.06542">Asymmetric Actor Critic</a> model.
+The Asymmetric Actor Critic uses a <a href="https://spinningup.openai.com/en/latest/algorithms/ddpg.html">DDPG</a> based approach, where the Actor gets image-based inputs but the Critic at the time of training gets state-based input.</p>
+
+
+    <div class="more"><a href="/Sim2Real(RL-class-project)/">read more</a></div>
+  </article>
+
+  <article>
+    <header>
+  <h1><a href="/examples/">Advanced examples</a></h1><time datetime="2017-01-01T00:00:00-05:00">January 01, 2017</time>
+</header>
+
+    <p><img src="https://user-images.githubusercontent.com/4943215/55412536-edbba180-5567-11e9-9c70-6d33bca3f8ed.jpg" alt="Swiss Alps" /></p>
+
+
+    <div class="more"><a href="/examples/">read more</a></div>
+  </article>
+
+
+
+
+
+
+
+
+<footer>
+  <div>New York University</div>
+  <script src="https://cdn.jsdelivr.net/npm/darkreader@4.9.44/darkreader.js">
+  document.getElementsByClassName('dark-mode-button')[0].onclick = function() {
+    darkmode()
+}
+function darkmode() {
+  let enabled = localStorage.getItem('dark-mode')
+
+  if (enabled === null) {
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        enable();
+    }
+  } else if (enabled === 'true') {
+    enable()
+  }
+
+  if (localStorage.getItem('dark-mode') === 'false') {
+      enable();
+  } else {
+      disable();
+  }
+}
+function enable()  {
+  DarkReader.setFetchMethod(window.fetch)
+  DarkReader.enable();
+  localStorage.setItem('dark-mode', 'true');
+}
+
+function disable() {
+  DarkReader.disable();
+  localStorage.setItem('dark-mode', 'false');
+}
+
+</script>
+<nav><a href="mailto:dz2140@nyu.edu" ><svg aria-label="Mail" class="icon">
+      <use xlink:href="/assets/fontawesome/icons.svg#envelope"></use>
+    </svg></a><a href="https://github.com/KraftOreo" ><svg aria-label="Github" class="icon">
+      <use xlink:href="/assets/fontawesome/icons.svg#github"></use>
+    </svg></a><!-- <a class="dark-mode-button">
+    <svg class="icon">
+      <use xlink:href="/assets/fontawesome/icons.svg#moon"></use>
+    </svg>
+  </a> -->
+</nav>
+</footer>
+
+
+</html>

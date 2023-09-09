@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<title>Publications | Duo Zhang</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="Duo Zhang">
+<meta name="generator" content="Jekyll v3.9.3">
+<link rel="canonical" href="http://localhost:4000/pub/">
+
+<link rel="stylesheet" href="/assets/css/index.css">
+
+<link rel="alternate" href="/feed.xml" type="application/atom+xml" title="Duo Zhang">
+
+<link rel="stylesheet" href="/assets/katex/katex.min.css">
+<script defer src="/assets/katex/katex.min.js"></script>
+<script defer src="/assets/katex/contrib/auto-render.min.js" onload="renderMathInElement(document.body)"></script>
+
+
+
+
+
+
+
+<header>
+  <a href="/" class="title">Duo Zhang</a>
+  <script src="https://cdn.jsdelivr.net/npm/darkreader@4.9.44/darkreader.js">
+  document.getElementsByClassName('dark-mode-button')[0].onclick = function() {
+    darkmode()
+}
+function darkmode() {
+  let enabled = localStorage.getItem('dark-mode')
+
+  if (enabled === null) {
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        enable();
+    }
+  } else if (enabled === 'true') {
+    enable()
+  }
+
+  if (localStorage.getItem('dark-mode') === 'false') {
+      enable();
+  } else {
+      disable();
+  }
+}
+function enable()  {
+  DarkReader.setFetchMethod(window.fetch)
+  DarkReader.enable();
+  localStorage.setItem('dark-mode', 'true');
+}
+
+function disable() {
+  DarkReader.disable();
+  localStorage.setItem('dark-mode', 'false');
+}
+
+</script>
+<nav><a href="/" >Home</a><a href="/pub/" class="selected" >Publications</a><a href="/archive/" >Blogs</a><a href="/assets/files/Duo_Zhang_CV.pdf" >CV</a><a href="/assets/files/duo_zhang_ucla_poster.pdf" >Poster</a><!-- <a class="dark-mode-button">
+    <svg class="icon">
+      <use xlink:href="/assets/fontawesome/icons.svg#moon"></use>
+    </svg>
+  </a> -->
+</nav>
+</header>
+
+<style>
+  .pubitem {
+    margin: 2em 0;
+    line-height: 1em;
+  }
+
+  .pubtitle {
+    margin-bottom: 0.5em;
+    line-height: 1.2em;
+    font-weight: bold;
+    font-size: 130%;
+  }
+
+  .pubauthors {
+    font-size: 100%;
+  }
+
+  .pubinfo {
+    font-size: 100%;
+    margin-bottom: 0.75em;
+  }
+
+  .publinks {
+    font-size: 100%;
+  }
+
+  .pubteaser {
+    clear: both;
+  }
+
+  .pubteaser a {
+    float: left;
+    margin-right: 2em;
+  }
+
+  .pubteaser img {
+    width: 200px;
+    border: 1px solid black;
+  }
+
+</style>
+<header>
+  <h1>Publications</h1>
+</header>
+
+
+<article>
+  <div class="pubitem">
+    <div class="pubtitle">Planning of Power Grasps Using Infinite Program Under Complementary Constraints</div>
+    <div class="pubteaser">
+      <a href="/publications/ral2022powergrasp">
+        <img src="/assets/files/images/publication-pages/power_grasp/power_grasp.png"
+          alt="power_grasp publication teaser" />
+      </a>
+    </div>
+    <div id="authors" class="pubauthors">Zherong Pan, Duo Zhang, Changhe Tu, Xifeng Gao</div>
+    <div class="pubinfo">IEEE Robotics and Automation Letters, 2021</div>
+    <div class="pubinfo"><b></b></div>
+    <div class="publinks">
+      <a href="/assets/files/publications/power_grasp.pdf"><i class="far fa-file-pdf"></i> PDF</a>&nbsp;&nbsp;
+      <a href="/publications/ral2022powergrasp"><i class="fas fa-link"></i> Project Page</a>
+      <a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=9626457"><i class="fas fa-link"></i> Paper Website</a>
+    </div>
+  </div>
+</article>
+
+<article>
+  <div class="pubitem">
+    <div class="pubtitle">Provably Robust Semi-Infinite Program Under Collision Constraints via Subdivision</div>
+    <div class="pubteaser">
+      <a href="/publications/rss2023trajgen">
+        <img src="/assets/files/images/publication-pages/SIPTrajGen/SIPTrajGen.png"
+          alt="SIPTrajGen publication teaser" />
+      </a>
+    </div>
+    <div id="authors" class="pubauthors">Duo Zhang, Xifeng Gao, Kui Wu, Zherong Pan</div>
+    <div class="pubinfo">preprint on ArXiv, 2023</div>
+    <div class="pubinfo"><b></b></div>
+    <div class="publinks">
+      <a href="/assets/files/publications/SIPTrajGen.pdf"><i class="far fa-file-pdf"></i> PDF</a>&nbsp;&nbsp;
+      <a href="/publications/rss2023trajgen"><i class="fas fa-link"></i> Project Page</a>
+      <a href="https://arxiv.org/pdf/2302.01135.pdf"><i class="fas fa-link"></i> Paper Website</a>
+    </div>
+  </div>
+</article>
+
+
+
+<script type="text/javascript">
+  function rep() {
+    var element = document.getElementsByClassName('pubauthors');
+     for(var i=0; i<element.length; i++){
+         var child = element[i];
+         child.innerHTML = child.innerHTML.replace(/Duo Zhang/g, '<b>Duo Zhang</b>');
+     }
+  }
+  window.onload = rep;
+</script>
+
+
+
+<footer>
+  <div>New York University</div>
+  <script src="https://cdn.jsdelivr.net/npm/darkreader@4.9.44/darkreader.js">
+  document.getElementsByClassName('dark-mode-button')[0].onclick = function() {
+    darkmode()
+}
+function darkmode() {
+  let enabled = localStorage.getItem('dark-mode')
+
+  if (enabled === null) {
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        enable();
+    }
+  } else if (enabled === 'true') {
+    enable()
+  }
+
+  if (localStorage.getItem('dark-mode') === 'false') {
+      enable();
+  } else {
+      disable();
+  }
+}
+function enable()  {
+  DarkReader.setFetchMethod(window.fetch)
+  DarkReader.enable();
+  localStorage.setItem('dark-mode', 'true');
+}
+
+function disable() {
+  DarkReader.disable();
+  localStorage.setItem('dark-mode', 'false');
+}
+
+</script>
+<nav><a href="mailto:dz2140@nyu.edu" ><svg aria-label="Mail" class="icon">
+      <use xlink:href="/assets/fontawesome/icons.svg#envelope"></use>
+    </svg></a><a href="https://github.com/KraftOreo" ><svg aria-label="Github" class="icon">
+      <use xlink:href="/assets/fontawesome/icons.svg#github"></use>
+    </svg></a><!-- <a class="dark-mode-button">
+    <svg class="icon">
+      <use xlink:href="/assets/fontawesome/icons.svg#moon"></use>
+    </svg>
+  </a> -->
+</nav>
+</footer>
+
+
+</html>
