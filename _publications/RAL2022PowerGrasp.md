@@ -6,5 +6,5 @@ publication: IEEE Robotics and Automation Letters
 year: 2021
 slug: power_grasp
 doi: None 
-url: https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=9626457
+website: https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=9626457
 ---
