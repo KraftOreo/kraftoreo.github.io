@@ -1,9 +1,0 @@
-
-	<p>My name is Duo Zhang(张多) and I am a first-year Ph.D. student and the <a href="https://www.cs.rutgers.edu">Computer Science Department of Rutgers University</a>. Here, I am advised by Prof. Jingjin Yu at the <a href="https://arc-l.github.io">Algorithmic Robotics and Control Lab(ARC-L)</a>.
-
-	Before this, I got my M.S. degree at the <a href="https://cims.nyu.edu/dynamic/">Courant Institute of Mathematical Sciences</a> of New York University. I worked with <a href="https://cims.nyu.edu/gcl/daniele.html">Prof. Daniele Panozzo</a> from the <a href="https://cims.nyu.edu/gcl/index.html">Geometry Computing Lab</a> and <a href="https://www.lerrelpinto.com/">Prof. Lerrel Pinto</a> from <a href="https://wp.nyu.edu/cilvr/">CILVR group</a> on Deep Reinforcement Learning, Physical Simulation and Robotics.
-
-	Prior to my master's degree, I got my Bachelor degree of Engineering from the Computer Science and Technology department at Shandong University. At that time, I was working with Prof. Changhe Tu, Dr. Zherong Pan and Dr. Xifeng Gao Grasp Planning Problems.
-    </p>
-	<h2>Research Interest</h2>
-	Manipulation, Grasp Planning, Deep Reinforcement Learning, Physical Simulation
