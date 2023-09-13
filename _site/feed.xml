@@ -1,4 +1,124 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="3.9.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="en" /><updated>2023-09-08T22:39:19-04:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Duo Zhang</title><subtitle>New York University</subtitle><author><name>Duo Zhang</name></author><entry><title type="html">Vector Spaces and Linearity</title><link href="http://localhost:4000/Advanced_Linear_Algebra1_1/" rel="alternate" type="text/html" title="Vector Spaces and Linearity" /><published>2023-02-23T00:00:00-05:00</published><updated>2023-02-23T00:00:00-05:00</updated><id>http://localhost:4000/Advanced_Linear_Algebra1_1</id><content type="html" xml:base="http://localhost:4000/Advanced_Linear_Algebra1_1/"><![CDATA[<h1 id="algebraic-structures">Algebraic structures</h1>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="3.9.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="en" /><updated>2023-09-12T20:19:41-04:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Duo Zhang</title><subtitle>Rutgers University</subtitle><author><name>Duo Zhang</name></author><entry><title type="html">Monte Carlo Tree Search</title><link href="http://localhost:4000/Monte_Carlo_Tree_Search/" rel="alternate" type="text/html" title="Monte Carlo Tree Search" /><published>2023-09-12T00:00:00-04:00</published><updated>2023-09-12T00:00:00-04:00</updated><id>http://localhost:4000/Monte_Carlo_Tree_Search</id><content type="html" xml:base="http://localhost:4000/Monte_Carlo_Tree_Search/"><![CDATA[<h1 id="motivation-of-monte-carlo-tree-search-mcts">Motivation of Monte Carlo Tree Search (MCTS)</h1>
+<ul>
+  <li>Play games optimally</li>
+  <li>To be able to play in a reasonalbe time</li>
+</ul>
+
+<h1 id="type-of-games">Type of games</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th>Deterministic</th>
+      <th>Nondeterministic</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Fully Observable</td>
+      <td>Chess, Checkers, Go</td>
+      <td>Backgammon, Monopoly</td>
+    </tr>
+  </tbody>
+  <tbody>
+    <tr>
+      <td>Partially Observable</td>
+      <td>BattleShip</td>
+      <td>Card Games</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="remarks">
+    <b>Remarks</b>
+    <p>
+        <li>
+        Here we will focus on The Deterministic and Fully observable games.
+        </li>
+        <li>
+            We have perfect information of the games.
+        </li>
+        <li>
+            Can construct a tree that contains all possible outcomes because everything is fully determined.
+        </li>
+        <li>
+            The main approach is to use Minimax: The computer is trying to minimize the possible maximum lost. Namely, depending on the moves of human players which is used to maximize the oppotunity for them to win, the computer is trying to minimize the lost from human players.
+        </li>
+    </p>
+</div>
+<p><br /></p>
+<div class="remarks">
+    <b>Remarks</b>
+    <p>
+        Since the tree is growing exponentiually, we don't actually need to explore every single possible node. We can selectively build a tree aysmmetrically while the main effort is used to explore the state that has more possibility to win.
+    </p>
+</div>
+
+<h1 id="mcts-outline">MCTS Outline</h1>
+<ul>
+  <li>Descend through the tree</li>
+  <li>Create new node</li>
+  <li>Simulate</li>
+  <li>Update the tree</li>
+  <li>When we are out of time, return the “best” child node</li>
+</ul>
+
+<h1 id="for-a-tree-node-k">For a tree node $k$</h1>
+<ul>
+  <li>\(n_k\)  is the number of games played involving \(k\)</li>
+  <li>\(w_k\) is the number of games won involving \(k\)</li>
+</ul>
+
+<h1 id="detailed-outline">Detailed Outline</h1>
+<h2 id="descending">Descending</h2>
+<p>Solution: <em>Upper Confidence Bound</em></p>
+
+\[\begin{align*}
+    UCB1(k,p) &amp;= E[win|k,p] + C \sqrt{\frac{2ln(n_{parent(k)})}{n_k}}\\
+    &amp;\approx \frac{w_{k,p}}{n_k} + C \sqrt{\frac{2ln(n_{parent(k)})}{n_k}}
+\end{align*}\]
+
+<p>where the \(E[win|k,p]\) is the expand part and \(C \sqrt{\frac{2ln(n_{parent(k)})}{n_k}}\) is the explore part.
+At each step, maximize \(UCB1(k,p)\)</p>
+
+<h2 id="expanding">Expanding</h2>
+<p>Make a new node and set \(n_k=0, w_k=0\)</p>
+
+<h2 id="simulating">Simulating</h2>
+<p>Randomly play the game, randomly chooose state nodes from all descending children. If the game is win, \(\Delta=+1\). If we lose or tie, \(\Delta =0\). But in most literature the results of descending children in simulation is not stored.</p>
+
+<h2 id="updating-the-tree">Updating the Tree</h2>
+<p>Propagate recursively up the parents.</p>
+
+<p>Give simulation result $\Delta$,
+for each \(k\):
+    \(n_{k_new} = n_{k_old} + 1\)
+    \(w_{k,1-new} = w_{k,1-old} + \Delta\)</p>
+
+<h2 id="terminate">Terminate</h2>
+<p>Return the best-ranked first ancestor!</p>
+
+<h1 id="pros-and-cons">Pros and Cons</h1>
+<h2 id="pros">Pros</h2>
+<ul>
+  <li>Grows tree asymmetrically, balancing expansion and exploration</li>
+  <li>Depends only on the rules</li>
+  <li>Easy to adapt to new games</li>
+  <li>Heuristics not requried, but can also be integrated</li>
+  <li>Can finish on demand, CPU time is proportional to answer quality</li>
+  <li>Complete: guaranteed to find a solution give time</li>
+  <li>Trivially parallelizable</li>
+</ul>
+
+<h2 id="cons">Cons</h2>
+<ul>
+  <li>Can’t handle extreme tree depth</li>
+  <li>Requires ease of simulation, massive computation resources</li>
+  <li>Relies on random play being “weakly correlated”</li>
+  <li>Many variants, need expertise to tune</li>
+  <li>Theoretical properties not yet understood</li>
+</ul>]]></content><author><name>Duo Zhang</name></author><category term="media" /><summary type="html"><![CDATA[Motivation of Monte Carlo Tree Search (MCTS) Play games optimally To be able to play in a reasonalbe time Type of games   Deterministic Nondeterministic Fully Observable Chess, Checkers, Go Backgammon, Monopoly Partially Observable BattleShip Card Games Remarks Here we will focus on The Deterministic and Fully observable games. We have perfect information of the games. Can construct a tree that contains all possible outcomes because everything is fully determined. The main approach is to use Minimax: The computer is trying to minimize the possible maximum lost. Namely, depending on the moves of human players which is used to maximize the oppotunity for them to win, the computer is trying to minimize the lost from human players. Remarks Since the tree is growing exponentiually, we don't actually need to explore every single possible node. We can selectively build a tree aysmmetrically while the main effort is used to explore the state that has more possibility to win. MCTS Outline Descend through the tree Create new node Simulate Update the tree When we are out of time, return the “best” child node For a tree node $k$ \(n_k\) is the number of games played involving \(k\) \(w_k\) is the number of games won involving \(k\) Detailed Outline Descending Solution: Upper Confidence Bound \[\begin{align*} UCB1(k,p) &amp;= E[win|k,p] + C \sqrt{\frac{2ln(n_{parent(k)})}{n_k}}\\ &amp;\approx \frac{w_{k,p}}{n_k} + C \sqrt{\frac{2ln(n_{parent(k)})}{n_k}} \end{align*}\] where the \(E[win|k,p]\) is the expand part and \(C \sqrt{\frac{2ln(n_{parent(k)})}{n_k}}\) is the explore part. At each step, maximize \(UCB1(k,p)\) Expanding Make a new node and set \(n_k=0, w_k=0\) Simulating Randomly play the game, randomly chooose state nodes from all descending children. If the game is win, \(\Delta=+1\). If we lose or tie, \(\Delta =0\). But in most literature the results of descending children in simulation is not stored. Updating the Tree Propagate recursively up the parents. Give simulation result $\Delta$, for each \(k\): \(n_{k_new} = n_{k_old} + 1\) \(w_{k,1-new} = w_{k,1-old} + \Delta\) Terminate Return the best-ranked first ancestor! Pros and Cons Pros Grows tree asymmetrically, balancing expansion and exploration Depends only on the rules Easy to adapt to new games Heuristics not requried, but can also be integrated Can finish on demand, CPU time is proportional to answer quality Complete: guaranteed to find a solution give time Trivially parallelizable Cons Can’t handle extreme tree depth Requires ease of simulation, massive computation resources Relies on random play being “weakly correlated” Many variants, need expertise to tune Theoretical properties not yet understood]]></summary></entry><entry><title type="html">Vector Spaces and Linearity</title><link href="http://localhost:4000/Advanced_Linear_Algebra1_1/" rel="alternate" type="text/html" title="Vector Spaces and Linearity" /><published>2023-02-23T00:00:00-05:00</published><updated>2023-02-23T00:00:00-05:00</updated><id>http://localhost:4000/Advanced_Linear_Algebra1_1</id><content type="html" xml:base="http://localhost:4000/Advanced_Linear_Algebra1_1/"><![CDATA[<h1 id="algebraic-structures">Algebraic structures</h1>
 <p>To start, we need some basic information of algebraic structure:</p>
 <div class="definition">
 <b>Definition</b>
